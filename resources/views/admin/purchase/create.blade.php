@@ -24,7 +24,16 @@
                             <div class="card-header">
                                 <div class="card-title">Add Admin User</div>
                             </div>
-                            <form action="{{ route('admin.purchase.store') }}" method="post" enctype="multipart/form-data">
+                            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+                            <form action="{{ route('admin.purchase.store') }}" method="post">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
@@ -60,7 +69,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="date">Date <span class="t_r">*</span></label>
-                                                <input type="date" date="date" class="form-control"
+                                                <input type="date" date="date" class="form-control" name="date"
                                                     value="{{ old('date') }}" placeholder="Enter date" required>
                                                 @if ($errors->has('date'))
                                                     <div class="alert alert-danger">{{ $errors->first('date') }}</div>
@@ -76,6 +85,9 @@
                                                         <option value="{{ $farm->id }}">{{ $farm->name }}</option>
                                                     @endforeach
                                                 </select>
+                                                @if ($errors->has('farm_id'))
+                                                    <div class="alert alert-danger">{{ $errors->first('farm_id') }}</div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-12">

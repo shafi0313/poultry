@@ -45,7 +45,7 @@ class SupplierController extends Controller
         // }
         DB::beginTransaction();
         $data = $request->validated();
-        $data['user_id'] = auth()->user()->id;
+        $data['user_id'] = user()->id;
         Supplier::create($data);
         try {
             DB::commit();

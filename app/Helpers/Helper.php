@@ -149,19 +149,36 @@ if (!function_exists('openNav')) {
     }
 }
 
-if (!function_exists('uniqueId')) {
-    function uniqueId($lenght = 8)
+if (!function_exists('transaction_id')) {
+    function transaction_id($src = '', $length = 8)
     {
         if (function_exists("random_bytes")) {
-            $bytes = random_bytes(ceil($lenght / 2));
+            $bytes = random_bytes(ceil($length / 2));
         } elseif (function_exists("openssl_random_pseudo_bytes")) {
-            $bytes = openssl_random_pseudo_bytes(ceil($lenght / 2));
+            $bytes = openssl_random_pseudo_bytes(ceil($length / 2));
         } else {
             throw new \Exception("no cryptographically secure random function available");
         }
-        return substr(bin2hex($bytes), 0, $lenght);
+        if ($src != '') {
+            return strtoupper($src.'_'.substr(bin2hex($bytes), 0, $length));
+        }
+        return strtoupper(substr(bin2hex($bytes), 0, $length));
     }
 }
+
+// if (!function_exists('uniqueId')) {
+//     function uniqueId($lenght = 8)
+//     {
+//         if (function_exists("random_bytes")) {
+//             $bytes = random_bytes(ceil($lenght / 2));
+//         } elseif (function_exists("openssl_random_pseudo_bytes")) {
+//             $bytes = openssl_random_pseudo_bytes(ceil($lenght / 2));
+//         } else {
+//             throw new \Exception("no cryptographically secure random function available");
+//         }
+//         return substr(bin2hex($bytes), 0, $lenght);
+//     }
+// }
 if (!function_exists('user')) {
     function user()
     {

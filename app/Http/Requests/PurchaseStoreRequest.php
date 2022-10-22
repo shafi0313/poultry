@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PurchaseStoreRequest extends FormRequest
@@ -24,7 +25,13 @@ class PurchaseStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'type'          => ['required', Rule::in(['chicken', 'feed'])],
+            'supplier_id'   => ['required'],
+            'farm_id'   => ['required'],
+            'sub_farm_id'   => ['required'],
+            // 'sub_farm_id'   => ['required', 'integer', 'not_in:0','regex:^[1-9][0-9]+'],
+            'date'          => ['date'],
+            'quantity'      => ['required'],
         ];
     }
 }
