@@ -1,11 +1,6 @@
 @extends('admin.layouts.app')
-@section('title', 'Admin User')
+@section('title', 'Purchase')
 @section('content')
-    @php
-        $m = 'setup';
-        $sm = 'subject';
-        $ssm = '';
-    @endphp
     <div class="main-panel">
         <div class="content">
             <div class="page-inner">
@@ -13,7 +8,7 @@
                     <ul class="breadcrumbs">
                         <li class="nav-home"><a href="{{ route('admin.dashboard') }}"><i class="flaticon-home"></i></a></li>
                         <li class="separator"><i class="flaticon-right-arrow"></i></li>
-                        <li class="nav-item"><a href="{{ route('admin.purchase.index') }}">Admin User</a></li>
+                        <li class="nav-item"><a href="{{ route('admin.purchase.index') }}">Purchase List</a></li>
                         <li class="separator"><i class="flaticon-right-arrow"></i></li>
                         <li class="nav-item">Create</li>
                     </ul>
@@ -22,17 +17,17 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">Add Admin User</div>
+                                <div class="card-title">Add Purchase</div>
                             </div>
                             @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <form action="{{ route('admin.purchase.store') }}" method="post">
                                 @csrf
                                 <div class="card-body">
@@ -62,14 +57,15 @@
                                                     @endforeach
                                                 </select>
                                                 @if ($errors->has('supplier_id'))
-                                                    <div class="alert alert-danger">{{ $errors->first('supplier_id') }}</div>
+                                                    <div class="alert alert-danger">{{ $errors->first('supplier_id') }}
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="date">Date <span class="t_r">*</span></label>
-                                                <input type="date" date="date" class="form-control" name="date"
+                                                <input type="date" class="form-control" name="date"
                                                     value="{{ old('date') }}" placeholder="Enter date" required>
                                                 @if ($errors->has('date'))
                                                     <div class="alert alert-danger">{{ $errors->first('date') }}</div>
@@ -78,7 +74,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Farm <span class="t_r">*</span></label>
+                                                <label for="exampleFormControlSelect1">Farm <span
+                                                        class="t_r">*</span></label>
                                                 <select class="form-control select2" name="farm_id" id="farm_id" required>
                                                     <option selected value disabled>Select</option>
                                                     @foreach ($farms as $farm)
@@ -137,7 +134,6 @@
                     }
                 });
             })
-
         </script>
     @endpush
 @endsection

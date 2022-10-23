@@ -13,7 +13,7 @@ class DailyEntryStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class DailyEntryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'farm_id'       => ['required'],
+            'sub_farm_id'   => ['required'],
+            'dead'          => ['nullable','integer'],
+            'reject'        => ['nullable','integer'],
+            'feed'          => ['nullable','integer'],
+            'date'          => ['required','date'],
         ];
     }
 }

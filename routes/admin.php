@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Auth\Role\RoleController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DailyEntryController;
 use App\Http\Controllers\Admin\EmployeeCatController;
 use App\Http\Controllers\Admin\VisitorInfoController;
 use App\Http\Controllers\Auth\Permission\PermissionController;
@@ -70,3 +71,5 @@ Route::resource('/sub-farm', SubFarmController::class)->except(['show','index','
 Route::resource('/supplier', SupplierController::class)->except(['show','create']);
 Route::resource('/purchase', PurchaseController::class)->except(['show']);
 Route::get('/get-farm', [PurchaseController::class, 'getFarm'])->name('purchase.getFarm');
+Route::resource('daily-entry', DailyEntryController::class)->except(['show']);
+Route::get('daily-entry/get-farm', [DailyEntryController::class, 'getFarm'])->name('dailyEntry.getFarm');

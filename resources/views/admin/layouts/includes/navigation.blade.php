@@ -101,13 +101,12 @@
                     </div>
                 </li>
 
-
-
-
-
-
-
-
+                <li class="nav-item {{ activeNav('admin.daily-entry.*') }}">
+                    <a href="{{ route('admin.daily-entry.create') }}">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                        <p>Daily Entry</p>
+                    </a>
+                </li>
 
                 <li class="nav-item {{ activeNav(['admin.role.*','admin.backup.*','admin.visitorInfo.*','admin.permission.*']) }}">
                     <a data-toggle="collapse" href="#settings">

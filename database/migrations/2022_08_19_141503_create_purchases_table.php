@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('farm_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->index();
-            $table->foreignId('sub_farm_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->index();
+            $table->foreignId('farm_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('sub_farm_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->enum('type',['chicken','feed']);
             $table->integer('quantity');
             $table->date('date')->index();
