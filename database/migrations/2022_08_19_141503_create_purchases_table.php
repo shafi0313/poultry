@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('status')->default(0)->comment('1=closed')->index();
             $table->string('tran')->index();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

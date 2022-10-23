@@ -12,6 +12,11 @@ use App\Http\Requests\DailyEntryStoreRequest;
 
 class DailyEntryController extends Controller
 {
+    public function index()
+    {
+        $dailyEntries = DailyEntry::with(['farm','subFarm'])->orderBy('farm_id')->latest()->get();
+        return view('admin.daily_entry.index', compact('dailyEntries'));
+    }
     public function create()
     {
         $farms = Farm::all(['id', 'name']);

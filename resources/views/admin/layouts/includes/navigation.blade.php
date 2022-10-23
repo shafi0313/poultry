@@ -44,13 +44,13 @@
 
                 <li class="nav-item{{ activeNav(['admin.employee-cat.*']) }} ">
                     <a data-toggle="collapse" href="#category">
-                        <i class="fas fa-users-cog"></i>
+                        <i class="fa-solid fa-list-ul"></i>
                         <p>Category</p>
                         <span class="caret"></span>
                     </a>
                     <div class="collapse {{ openNav(['admin.employee-cat.*']) }}" id="category">
                         <ul class="nav nav-collapse">
-                            <li class="{{ activeSubNav('admin.employee-cat.*')}}">
+                            <li class="{{ activeSubNav('admin.employee-cat.index')}}">
                                 <a href="{{ route('admin.employee-cat.index') }}">
                                     <span class="sub-item">Employee Category</span>
                                 </a>
@@ -59,7 +59,6 @@
                     </div>
                 </li>
 
-
                 <li class="nav-item {{ activeNav('admin.farm.*') }}">
                     <a href="{{ route('admin.farm.index') }}">
                         <i class="fas fa-home"></i>
@@ -67,7 +66,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item{{ activeNav(['admin.employee-cat.*']) }} ">
+                <li class="nav-item{{ activeNav(['admin.supplier.*']) }} ">
                     <a data-toggle="collapse" href="#people">
                         <i class="fas fa-users-cog"></i>
                         <p>People</p>
@@ -75,7 +74,7 @@
                     </a>
                     <div class="collapse {{ openNav(['admin.supplier.*']) }}" id="people">
                         <ul class="nav nav-collapse">
-                            <li class="{{ activeSubNav('admin.supplier.*')}}">
+                            <li class="{{ activeSubNav('admin.supplier.index')}}">
                                 <a href="{{ route('admin.supplier.index') }}">
                                     <span class="sub-item">Supplier</span>
                                 </a>
@@ -84,15 +83,15 @@
                     </div>
                 </li>
 
-                <li class="nav-item{{ activeNav(['admin.employee-cat.*']) }} ">
+                <li class="nav-item{{ activeNav(['admin.purchase.*']) }} ">
                     <a data-toggle="collapse" href="#purchase">
-                        <i class="fas fa-users-cog"></i>
+                        <i class="fa-solid fa-cart-shopping"></i>
                         <p>Purchase</p>
                         <span class="caret"></span>
                     </a>
                     <div class="collapse {{ openNav(['admin.purchase.*']) }}" id="purchase">
                         <ul class="nav nav-collapse">
-                            <li class="{{ activeSubNav('admin.purchase.*')}}">
+                            <li class="{{ activeSubNav('admin.purchase.create')}}">
                                 <a href="{{ route('admin.purchase.create') }}">
                                     <span class="sub-item">Add Purchase</span>
                                 </a>
@@ -101,11 +100,48 @@
                     </div>
                 </li>
 
-                <li class="nav-item {{ activeNav('admin.daily-entry.*') }}">
-                    <a href="{{ route('admin.daily-entry.create') }}">
+                <li class="nav-item{{ activeNav(['admin.daily-entry.*']) }} ">
+                    <a data-toggle="collapse" href="#dailyEntry">
                         <i class="fa-solid fa-clipboard-list"></i>
                         <p>Daily Entry</p>
+                        <span class="caret"></span>
                     </a>
+                    <div class="collapse {{ openNav(['admin.daily-entry.*']) }}" id="dailyEntry">
+                        <ul class="nav nav-collapse">
+                            <li class="{{ activeSubNav('admin.daily-entry.index')}}">
+                                <a href="{{ route('admin.daily-entry.index') }}">
+                                    <span class="sub-item">Entry List</span>
+                                </a>
+                            </li>
+                            <li class="{{ activeSubNav('admin.daily-entry.create')}}">
+                                <a href="{{ route('admin.daily-entry.create') }}">
+                                    <span class="sub-item">Entry</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item{{ activeNav(['admin.daily-entry.*']) }} ">
+                    <a data-toggle="collapse" href="#report">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                        <p>Report</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse {{ openNav(['admin.dreport.dailyEntry.*']) }}" id="report">
+                        <ul class="nav nav-collapse">
+                            <li class="{{ activeSubNav('admin.report.dailyEntry.*')}}">
+                                <a href="{{ route('admin.report.dailyEntry.select') }}">
+                                    <span class="sub-item">Report</span>
+                                </a>
+                            </li>
+                            {{-- <li class="{{ activeSubNav('admin.daily-entry.create')}}">
+                                <a href="{{ route('admin.daily-entry.create') }}">
+                                    <span class="sub-item">Entry</span>
+                                </a>
+                            </li> --}}
+                        </ul>
+                    </div>
                 </li>
 
                 <li class="nav-item {{ activeNav(['admin.role.*','admin.backup.*','admin.visitorInfo.*','admin.permission.*']) }}">

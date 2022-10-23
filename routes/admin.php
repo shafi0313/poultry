@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\DailyEntryController;
 use App\Http\Controllers\Admin\EmployeeCatController;
 use App\Http\Controllers\Admin\VisitorInfoController;
 use App\Http\Controllers\Auth\Permission\PermissionController;
+use App\Http\Controllers\Admin\Report\DailyEntryReportController;
 
 Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
 
@@ -73,3 +74,11 @@ Route::resource('/purchase', PurchaseController::class)->except(['show']);
 Route::get('/get-farm', [PurchaseController::class, 'getFarm'])->name('purchase.getFarm');
 Route::resource('daily-entry', DailyEntryController::class)->except(['show']);
 Route::get('daily-entry/get-farm', [DailyEntryController::class, 'getFarm'])->name('dailyEntry.getFarm');
+
+Route::prefix('/report')->group(function(){
+    Route::controller(DailyEntryReportController::class)->prefix('/daily-entry')->group(function(){
+        Route::get('/select','select')->name('report.dailyEntry.select');
+        Route::post('/report','report')->name('report.dailyEntry.report');
+    });
+
+});

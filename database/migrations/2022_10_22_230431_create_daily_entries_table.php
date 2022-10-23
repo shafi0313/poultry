@@ -22,7 +22,9 @@ return new class extends Migration
             $table->tinyInteger('reject')->nullable();
             $table->tinyInteger('feed')->nullable();
             $table->date('date')->index();
+            $table->boolean('status')->default(0)->comment('1=closed')->index();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

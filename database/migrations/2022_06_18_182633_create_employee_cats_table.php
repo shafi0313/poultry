@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('employee_cats', function (Blueprint $table) {
             $table->id();
             $table->string('name',80)->unique();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('room_no',10);
             $table->string('name',100)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
