@@ -13,23 +13,23 @@
                     </ul>
                 </div>
 
-                <div class="row">
+                <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h4 class="card-title">Add Row</h4>
-                                    <a data-toggle="modal" data-target="#employee_cat-add"
+                                    <h4 class="card-title">Select Information</h4>
+                                    {{-- <a data-toggle="modal" data-target="#employee_cat-add"
                                         class="btn btn-primary btn-round ml-auto text-light" style="min-width: 200px">
                                         <i class="fa fa-plus"></i> Add New
-                                    </a>
+                                    </a> --}}
                                 </div>
                             </div>
-                            <form action="{{ route('admin.report.dailyEntry.report') }}" method="post">
-                                @csrf
+                            <form action="{{ route('admin.report.dailyEntry.report') }}" method="get">
+                                {{-- @csrf --}}
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="farm_id">Farm <span class="t_r">*</span></label>
                                                 <select class="form-control select2" name="farm_id" id="farm_id" required>
@@ -60,20 +60,26 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="date">Date <span class="t_r">*</span></label>
-                                                <select name="date" id="" class="form-control" required>
-                                                    <option selected value disabled>Select</option>
-                                                    <option value="toDay">To Days</option>
-                                                    <option value="thisWeek">This Week</option>
-                                                </select>
-                                                @if ($errors->has('date'))
-                                                    <div class="alert alert-danger">{{ $errors->first('date') }}</div>
+                                                <label for="start_date">Start Date <span class="t_r">*</span></label>
+                                                <input type="date" class="form-control" name="start_date">
+                                                @if ($errors->has('start_date'))
+                                                    <div class="alert alert-danger">{{ $errors->first('start_date') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="end_date">End Date <span class="t_r">*</span></label>
+                                                <input type="date" class="form-control" name="end_date">
+                                                @if ($errors->has('end_date'))
+                                                    <div class="alert alert-danger">{{ $errors->first('end_date') }}</div>
                                                 @endif
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer text-center">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                     <button type="reset" class="btn btn-secondary">Reset</button>
                                 </div>

@@ -32,7 +32,7 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Type <span
                                                         class="t_r">*</span></label>
@@ -45,7 +45,7 @@
                                                     <div class="alert alert-danger">{{ $errors->first('type') }}</div>
                                                 @endif
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Supplier <span
@@ -94,13 +94,15 @@
                                                         <th>SL</th>
                                                         <th>Room No</th>
                                                         <th>Name</th>
-                                                        <th>Input</th>
+                                                        <th>Chicken</th>
+                                                        <th>Feed</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="subFarms" id="subFarms"></tbody>
                                                 <tfoot>
                                                     <td colspan="3" class="text-right">Total</td>
-                                                    <td id="subtotal"></td>
+                                                    <td id="chickenTotal"></td>
+                                                    <td id="feedTotal"></td>
                                                 </tfoot>
                                             </table>
                                         </div>

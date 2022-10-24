@@ -37,18 +37,17 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'type'          => ['required'],
             'supplier_id'   => ['required'],
-            'farm_id'   => ['required'],
+            'farm_id'       => ['required'],
             'sub_farm_id'   => ['required'],
             // 'sub_farm_id'   => ['required', 'integer', 'not_in:0','regex:^[1-9][0-9]+'],
             'date'          => ['date'],
-            'quantity'      => ['required'],
+            'chicken'       => ['nullable'],
+            'feed'          => ['nullable'],
         ]);
         DB::beginTransaction();
-        // $data = $request->validated();
         $tran = transaction_id();
-        foreach ($request->quantity as $k => $v) {
+        foreach ($request->sub_farm_id as $k => $v) {
                 $data = [
                     'user_id' => user()->id,
                     'type' => $request->type,
@@ -56,12 +55,13 @@ class PurchaseController extends Controller
                     'farm_id' => $request->farm_id,
                     'date' => $request->date,
                     'sub_farm_id' => $request->sub_farm_id[$k],
-                    'quantity' => $v,
+                    'chicken' => $request->chicken[$k],
+                    'feed' => $request->feed[$k],
                     'tran' => $tran,
                 ];
-            if ($v > 0) {
+            // if ($v > 0) {
                 Purchase::create($data);
-            }
+            // }
 
         }
         try {

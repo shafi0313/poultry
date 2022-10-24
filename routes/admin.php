@@ -78,7 +78,7 @@ Route::get('daily-entry/get-farm', [DailyEntryController::class, 'getFarm'])->na
 Route::prefix('/report')->group(function(){
     Route::controller(DailyEntryReportController::class)->prefix('/daily-entry')->group(function(){
         Route::get('/select','select')->name('report.dailyEntry.select');
-        Route::post('/report','report')->name('report.dailyEntry.report');
+        Route::get('/report','report')->name('report.dailyEntry.report');
     });
 
 });
