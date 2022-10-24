@@ -4,79 +4,128 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Farm;
 use App\Models\User;
+use App\Models\SubFarm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FarmStoreRequest;
+use Yajra\DataTables\Facades\DataTables;
 
 class FarmController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        if ($error = $this->authorize('farm-manage')) {
-            return $error;
+        // if ($error = $this->authorize('employee-manage')) {
+        //     return $error;
+        // }
+        if ($request->ajax()) {
+            $farms = Farm::query();
+            return DataTables::of($farms)
+                ->addIndexColumn()
+                ->addColumn('check', function ($row) {
+                    return '<input type="checkbox" name="select[]" onclick="checkcheckbox()" id="check_'.$row->id.'" class="check" value="'.$row->id.'">';
+                })
+                ->addColumn('created_at', function ($row) {
+                    return $row->created_at->diffForHumans();
+                })
+                ->addColumn('action', function ($row) {
+                    $btn = '';
+                    $btn .= '<a href='.route('admin.farm.show', $row->id).' class="mr-2">Add Room</a>';
+                    $btn .= view('button', ['type' => 'ajax-edit', 'route' => route('admin.farm.edit', $row->id) , 'row' => $row]);
+                    $btn .= view('button', ['type' => 'ajax-delete', 'route' => route('admin.farm.destroy', $row->id), 'row' => $row, 'src' => 'dt']);
+                    return $btn;
+                })
+                ->rawColumns(['check', 'action', 'created_at'])
+                ->make(true);
         }
-        $farms = Farm::with('subFarms')->get();
         $users = User::whereIn('type',['1','3'])->get(['id','name']);
-        return view('admin.farm.index', compact('farms','users'));
+        return view('admin.farm.index', compact('users'));
     }
 
     public function store(FarmStoreRequest $request)
     {
-        if ($error = $this->authorize('farm-add')) {
-            return $error;
-        }
-
-        $data = $request->validated();
-        // $data['user_id'] =;
-
-        try{
-            Farm::create($data);
-            toast('Success!','success');
-            return redirect()->back();
-        }catch(\Exception $ex){
-            return $ex->getMessage();
-            toast('Error','error');
-            return redirect()->back();
-        }
-    }
-
-    public function update(Request $request, $id)
-    {
-        if ($error = $this->authorize('farm-manage')) {
-            return $error;
-        }
-        $data = $this->validate($request, [
-            'name' => 'required|max:191',
-        ]);
-
+        // if ($error = $this->authorize('employee-add')) {
+        //     return $error;
+        // }
         DB::beginTransaction();
-
-        try{
-            Subject::find($id)->update($data);
+        $data = $request->validated();
+        $data['user_id'] = user()->id;
+        Farm::create($data);
+        try {
             DB::commit();
-            toast('success','Success');
-            return redirect()->back();
-        }catch(\Exception $ex){
-            return $ex->getMessage();
+            return response()->json(['message'=> 'Data Successfully Inserted'], 200);
+        } catch (\Exception $e) {
             DB::rollBack();
-            toast('error','Error');
-            return redirect()->back();
+            return response()->json(['message'=>__('app.oops')], 500);
+            // return response()->json(['message'=>$e->getMessage()], 500);
         }
     }
 
-
-    public function destroy($id)
+    public function show(Request $request, $id)
     {
-        if ($error = $this->sendPermissionError('delete')) {
-            return $error;
+        if ($request->ajax()) {
+            $subFarms = SubFarm::whereFarm_id($id);
+            return DataTables::of($subFarms)
+                ->addIndexColumn()
+                ->addColumn('check', function ($row) {
+                    return '<input type="checkbox" name="select[]" onclick="checkcheckbox()" id="check_'.$row->id.'" class="check" value="'.$row->id.'">';
+                })
+                ->addColumn('created_at', function ($row) {
+                    return $row->created_at->diffForHumans();
+                })
+                ->addColumn('action', function ($row) {
+                    $btn = '';
+                    $btn .= view('button', ['type' => 'ajax-edit', 'route' => route('admin.sub-farm.edit', $row->id) , 'row' => $row]);
+                    $btn .= view('button', ['type' => 'ajax-delete', 'route' => route('admin.sub-farm.destroy', $row->id), 'row' => $row, 'src' => 'dt']);
+                    return $btn;
+                })
+                ->rawColumns(['check', 'action', 'created_at'])
+                ->make(true);
         }
-        try{
-            Subject::find($id)->delete();
-            toast('Success!','success');
-            return redirect()->back();
-        }catch(\Exception $ex){
-            toast('Failed','error');
-            return redirect()->back();
+        $farm = Farm::find($id);
+        return view('admin.sub_farm.index', compact('farm'));
+    }
+
+
+    public function edit(Request $request, Farm $farm)
+    {
+        // if ($error = $this->authorize('class-room-edit')) {
+        //     return $error;
+        // }
+        if ($request->ajax()) {
+            $users = User::whereIn('type',['1','3'])->get(['id','name']);
+            $modal = view('admin.farm.edit', compact('users'))->with('farm', $farm,)->render();
+            return response()->json(['modal' => $modal], 200);
+        }
+        return abort(500);
+    }
+
+
+    public function update(FarmStoreRequest $request, Farm $farm)
+    {
+        // if ($error = $this->authorize('class-room-edit')) {
+        //     return $error;
+        // }
+        $data = $request->validated();
+        try {
+            $farm->update($data);
+            return response()->json(['message'=> 'Updated Successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message'=>__('app.oops')], 500);
+        }
+    }
+
+    public function destroy(Farm $farm)
+    {
+        // if ($error = $this->authorize('class-room-delete')) {
+        //     return $error;
+        // }
+        try {
+            $farm->delete();
+            return response()->json(['message'=> 'Deleted Successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message'=>__('app.oops')], 500);
+            // return response()->json(['message'=>$e->getMessage()], 500);
         }
     }
 }

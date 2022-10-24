@@ -5,66 +5,69 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Farm;
 use App\Models\SubFarm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use RealRashid\SweetAlert\Facades\Alert;
-use App\Http\Requests\SubFarmStoreRequest;
 
 class SubFarmController extends Controller
 {
-    public function store(SubFarmStoreRequest $request)
+    public function store(Request $request)
     {
-        if ($error = $this->authorize('sub-farm-add')) {
-            return $error;
-        }
-
-        $data = $request->validated();
+        DB::beginTransaction();
         $data['user_id'] = user()->id;
-        try{
-            SubFarm::create($data);
-            toast('Success!','success');
-            return redirect()->back();
-        }catch(\Exception $ex){
-            // return $ex->getMessage();
-            toast('Error','error');
-            return redirect()->back();
+        $data['farm_id'] = $request->farm_id;
+        $data['room_no'] = SubFarm::whereFarm_id($request->farm_id)->max('room_no') + 1;
+        $data['name'] = Farm::find($request->farm_id)->name;
+        SubFarm::create($data);
+        try {
+            DB::commit();
+            return response()->json(['message' => 'Data Successfully Inserted'], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => __('app.oops')], 500);
+            // return response()->json(['message'=>$e->getMessage()], 500);
         }
     }
 
-    public function edit($id)
+
+    public function edit(Request $request, Farm $farm)
     {
-        $farms = Farm::all();
-        $subFarm = SubFarm::find($id);
-        return view('admin.farm.edit', compact('farms', 'subFarm'));
+        // if ($error = $this->authorize('class-room-edit')) {
+        //     return $error;
+        // }
+        if ($request->ajax()) {
+            $users = User::whereIn('type', ['1', '3'])->get(['id', 'name']);
+            $modal = view('admin.farm.edit', compact('users'))->with('farm', $farm,)->render();
+            return response()->json(['modal' => $modal], 200);
+        }
+        return abort(500);
     }
 
-    public function update(SubFarmStoreRequest $request, SubFarm $subFarm)
-    {
-        if ($error = $this->authorize('sub-farm-edit')) {
-            return $error;
-        }
 
+    public function update(FarmStoreRequest $request, Farm $farm)
+    {
+        // if ($error = $this->authorize('class-room-edit')) {
+        //     return $error;
+        // }
         $data = $request->validated();
-        $data['user_id'] = user()->id;
-        try{
-            $subFarm->update($data);
-            toast('Success!','success');
-            return redirect()->back();
-        }catch(\Exception $ex){
-            // return $ex->getMessage();
-            toast('Error','error');
-            return redirect()->back();
+        try {
+            $farm->update($data);
+            return response()->json(['message' => 'Updated Successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => __('app.oops')], 500);
         }
     }
 
-    public function destroy(SubFarm $subFarm)
+    public function destroy(SubFarm $farm)
     {
-        try{
-            $subFarm->delete();
-            Alert::success('Success','Successfully Deleted');
-            return redirect()->back();
-        }catch (\Exception $ex) {
-            Alert::error('Oops...','Delete Failed');
-            return back();
+        // if ($error = $this->authorize('class-room-delete')) {
+        //     return $error;
+        // }
+        try {
+            $farm->delete();
+            return response()->json(['message' => 'Deleted Successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => __('app.oops')], 500);
+            // return response()->json(['message'=>$e->getMessage()], 500);
         }
     }
 }

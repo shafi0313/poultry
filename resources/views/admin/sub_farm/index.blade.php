@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Farm')
+@section('title', 'Farms Room No')
 @section('content')
     <div class="main-panel">
         <div class="content">
@@ -8,7 +8,7 @@
                     <ul class="breadcrumbs">
                         <li class="nav-home"><a href="{{ route('admin.dashboard') }}"><i class="flaticon-home"></i></a></li>
                         <li class="separator"><i class="flaticon-right-arrow"></i></li>
-                        <li class="nav-item">Farm</li>
+                        <li class="nav-item">Room No</li>
                     </ul>
                 </div>
                 <div class="row">
@@ -19,20 +19,22 @@
                                     <h4 class="card-title">Add Row</h4>
                                     <a data-toggle="modal" data-target="#addModal"
                                         class="btn btn-primary btn-round ml-auto text-light" style="min-width: 200px">
-                                        <i class="fa fa-plus"></i> Add New
+                                        <i class="fa fa-plus"></i> Add New Room
                                     </a>
                                 </div>
                             </div>
                             <div class="card-body row justify-content-center">
-
+                                <div>
+                                    <h2>{{ $farm->name }}</h2>
+                                </div>
                                 <div class="col-lg-12 mb-1">
                                     <button type="button" class="btn btn-warning mr-2" onclick="ajaxAllDelete(this, 'dt')"
-                                        data-route="{{ route('admin.delete_all', 'Farm') }}" data-bs-placement="top"
+                                        data-route="{{ route('admin.delete_all', 'SubFarm') }}" data-bs-placement="top"
                                         data-bs-toggle="tooltip" data-bs-original-title="@lang('app.soft-delete-alert')"
                                         title="@lang('app.soft-delete-alert')">
                                         <i class="fa-solid fa-trash-arrow-up"> </i> @lang('app.delete')
                                     </button>
-                                    <button data-route="{{ route('admin.force_delete_all', 'Farm') }}"
+                                    <button data-route="{{ route('admin.force_delete_all', 'SubFarm') }}"
                                         onclick="ajaxAllDelete(this, 'dt')" class='btn btn-danger' data-bs-placement="top"
                                         data-bs-toggle="tooltip" data-bs-original-title="@lang('app.force-delete-alert')"
                                         title="@lang('app.force-delete-alert')">
@@ -48,10 +50,10 @@
                                                 <td style="width:40px" class="no-sort">
                                                     <input type="checkbox" id="checkAll"> ID
                                                 </td>
-                                                <th>SL</th>
+                                                {{-- <th>SL</th> --}}
+                                                <th>Room No</th>
                                                 <th>Name</th>
-                                                <th>Address</th>
-                                                <th class="no-sort" style="width: 170px">Action</th>
+                                                <th class="no-sort" style="width: 100px">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -65,7 +67,7 @@
         </div>
 
         @push('custom_scripts')
-            @include('admin.farm.create')
+            @include('admin.sub_farm.create')
             <!-- Datatables -->
             @include('include.data_table')
             <script>
@@ -77,26 +79,26 @@
                         ordering: true,
                         responsive: true,
                         scrollY: 400,
-                        ajax: "{{ route('admin.farm.index') }}",
+                        ajax: "{{ route('admin.farm.show', $farm->id) }}",
                         columns: [{
                                 data: 'check',
                                 name: 'check',
                                 orderable: false,
                                 searchable: false
                             },
+                            // {
+                            //     data: 'DT_RowIndex',
+                            //     name: 'DT_RowIndex',
+                            //     searchable: false,
+                            //     orderable: false,
+                            // },
                             {
-                                data: 'DT_RowIndex',
-                                name: 'DT_RowIndex',
-                                searchable: false,
-                                orderable: false,
+                                data: 'room_no',
+                                name: 'room_no'
                             },
                             {
                                 data: 'name',
                                 name: 'name'
-                            },
-                            {
-                                data: 'address',
-                                name: 'address'
                             },
                             {
                                 data: 'action',

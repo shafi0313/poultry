@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('farm_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('room_no',10);
-            $table->string('name',100)->nullable();
+            // $table->string('name',100)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

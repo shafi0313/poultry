@@ -13,8 +13,7 @@ class SipplierStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
-    }
+        return false;    }
 
     /**
      * Get the validation rules that apply to the request.

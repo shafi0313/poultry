@@ -67,8 +67,8 @@ Route::controller(ProfileController::class)->prefix('my-profile')->group(functio
 Route::resource('/user', UserController::class)->except(['show','create']);
 Route::resource('/employee-cat', EmployeeCatController::class)->except(['show','create']);
 Route::resource('/employee', EmployeeController::class)->except(['show','create']);
-Route::resource('/farm', FarmController::class)->except(['show']);
-Route::resource('/sub-farm', SubFarmController::class)->except(['show','index','create']);
+Route::resource('/farm', FarmController::class)->except(['create']);
+Route::resource('/sub-farm', SubFarmController::class)->except(['show','create']);
 Route::resource('/supplier', SupplierController::class)->except(['show','create']);
 Route::resource('/purchase', PurchaseController::class)->except(['show']);
 Route::get('/get-farm', [PurchaseController::class, 'getFarm'])->name('purchase.getFarm');
