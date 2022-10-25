@@ -25,7 +25,7 @@
                                     </a> --}}
                                 </div>
                             </div>
-                            <form action="{{ route('admin.report.deadFeed.report') }}" method="get">
+                            <form action="{{ route('admin.report.sales.report') }}" method="get">
                                 {{-- @csrf --}}
                                 <div class="card-body">
                                     <div class="row">

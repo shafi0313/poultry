@@ -1,20 +1,22 @@
 @extends('admin.layouts.app')
-@section('title', 'Monthly Report')
+@section('title', 'Chicken Sales Report')
 @section('content')
-<style>
-    .dead {
-        background: rgb(253, 128, 128)
-    }
-    .feed {
-        background: rgb(96, 255, 130)
-    }
-    /* .date {
-        background: rgb(223, 223, 223)
-    } */
-    .total {
-        background: rgb(252, 255, 85)
-    }
-</style>
+    <style>
+        /* .dead {
+            background: rgb(253, 128, 128)
+        }
+
+        .feed {
+            background: rgb(96, 255, 130)
+        }
+
+        /* .date {
+            background: rgb(223, 223, 223)
+        } */
+        .total {
+            background: rgb(252, 255, 85)
+        } */
+    </style>
     <div class="main-panel">
         <div class="content">
             <div class="page-inner">
@@ -22,7 +24,7 @@
                     <ul class="breadcrumbs">
                         <li class="nav-home"><a href="{{ route('admin.dashboard') }}"><i class="flaticon-home"></i></a></li>
                         <li class="separator"><i class="flaticon-right-arrow"></i></li>
-                        <li class="nav-item">Monthly Report</li>
+                        <li class="nav-item">Chicken Sales Report</li>
                     </ul>
                 </div>
 
@@ -37,7 +39,7 @@
                             <div class="card-body">
                                 <div class="card-body row justify-content-center">
                                     <div class="text-center">
-                                        <h3>{{ $dailyEntries->first()->farm->name ?? ''}}</h3>
+                                        <h3>{{ $sales->first()->farm->name ?? '' }}</h3>
                                         <h4>Form: {{ bdDate($start_date) }} to: {{ bdDate($end_date) }}</h4>
                                     </div>
                                     <div class="table-responsive">
@@ -45,56 +47,56 @@
                                             class="display table table-striped table-hover text-center">
                                             <thead class="bg-secondary thw">
                                                 <tr>
-                                                    <td rowspan="2">Date</td>
-                                                    @foreach ($dailyEntries->groupBy('sub_farm_id') as $dailyEntri)
+                                                    <td>Date</td>
+                                                    <td>D.O.</td>
+                                                    <td>Total Crate</td>
+                                                    @foreach ($sales->groupBy('sub_farm_id') as $gRoomNo)
                                                         @php
-                                                            $dailyEntrie = $dailyEntri->first();
+                                                            $roomNo = $gRoomNo->first();
                                                         @endphp
-                                                        <th colspan="2">{{ $dailyEntrie->subFarm->room_no }}</th>
+                                                        <th>{{ $roomNo->subFarm->room_no }}</th>
                                                     @endforeach
-                                                    <td colspan="2">Total D/F</td>
-                                                </tr>
-                                                <tr>
-                                                    @foreach ($dailyEntries->groupBy('sub_farm_id') as $dailyEntri)
-                                                        <th class="dead">Dead</th>
-                                                        <th class="feed">Feed</th>
-                                                    @endforeach
-                                                    <th class="dead">Dead</th>
-                                                    <th class="feed">Feed</th>
+                                                    <td>Total D/F</td>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
-                                                @foreach ($dailyEntries->groupBy('date') as $gByDate)
-                                                @php
-                                                    $fGByDate = $gByDate->first();
-                                                @endphp
+                                                @foreach ($sales->groupBy('do') as $gByDo)
+                                                    @php
+                                                        $fgByDo = $gByDo->first();
+                                                    @endphp
                                                     <tr>
-                                                        <td class="date">{{ bdDate($fGByDate->date) }}</td>
-                                                        @foreach ($gByDate->groupBy('sub_farm_id') as $dailyEntri)
-                                                            @php
-                                                                $dailyEntrie = $dailyEntri->first()->first();
-                                                            @endphp
-                                                            <td class="dead">{{ $dailyEntri->sum('dead') }}</td>
-                                                            <td class="feed">{{ $dailyEntri->sum('feed') }}</td>
+                                                        <td class="date">{{ bdDate($fgByDo->date) }}</td>
+                                                        <td class="dead">{{ $fgByDo->do }}</td>
+                                                        <td class="dead">{{ $fgByDo->crate }}</td>
+                                                        @foreach ($gByDo->groupBy('sub_farm_id') as $quantity)
+                                                            <td class="dead">{{ $quantity->sum('quantity') }}</td>
                                                         @endforeach
-                                                        <td class="dead">{{ $gByDate->sum('dead') }}</td>
-                                                        <td class="feed">{{ $gByDate->sum('feed') }}</td>
+                                                        <td class="dead">{{ $gByDo->sum('quantity') }}</td>
                                                     </tr>
                                                 @endforeach
 
                                             </tbody>
                                             <tr style="font-weight: bold">
-                                                <td class="total">Total</td>
-                                                @foreach ($dailyEntries->groupBy('sub_farm_id') as $dailyEntri)
-                                                    @php
-                                                        $dailyEntrie = $dailyEntri->first();
-                                                    @endphp
-                                                    <td class="dead">{{ $dailyEntri->sum('dead') }}</td>
-                                                    <td class="feed">{{ $dailyEntri->sum('feed') }}</td>
+                                                <td colspan="3" class="total">Total</td>
+                                                @foreach ($sales->groupBy('sub_farm_id') as $sale)
+                                                    <td class="dead">{{ $sale->sum('quantity') }}</td>
+                                                @endforeach
+                                                <td class="dead">{{ $sales->sum('quantity') }}</td>
+                                            </tr>
+                                            <tr style="font-weight: bold">
+                                                <td colspan="3" class="total">Dead</td>
+                                                @foreach ($dailyEntries->groupBy('sub_farm_id') as $dailyEntry)
+                                                    <td class="dead">{{ $dailyEntry->sum('dead') }}</td>
                                                 @endforeach
                                                 <td class="dead">{{ $dailyEntries->sum('dead') }}</td>
-                                                <td class="feed">{{ $dailyEntries->sum('feed') }}</td>
+                                            </tr>
+                                            <tr style="font-weight: bold">
+                                                <td colspan="3" class="total">Adjust</td>
+                                                @foreach ($dailyEntries->groupBy('sub_farm_id') as $dailyEntry)
+                                                    <td class="dead">{{ $dailyEntry->sum('dead') }}</td>
+                                                @endforeach
+                                                <td class="dead">{{ $dailyEntries->sum('dead') }}</td>
                                             </tr>
                                         </table>
                                     </div>

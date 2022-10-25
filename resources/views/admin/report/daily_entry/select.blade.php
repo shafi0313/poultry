@@ -97,7 +97,7 @@
             <script>
                 $('#farm_id').change(function() {
                 $.ajax({
-                    url: '{{ route('admin.dailyEntry.getFarm') }}',
+                    url: '{{ route('admin.global.getFarm') }}',
                     method: 'get',
                     data: {
                         farm_id: $(this).val(),

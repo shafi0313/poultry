@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\Admin\FarmController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\Admin\BackupController;
+use App\Http\Controllers\Admin\GlobalController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SubFarmController;
 use App\Http\Controllers\Admin\EmployeeController;
@@ -15,6 +17,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DailyEntryController;
 use App\Http\Controllers\Admin\EmployeeCatController;
 use App\Http\Controllers\Admin\VisitorInfoController;
+use App\Http\Controllers\Admin\Report\SalesReportController;
 use App\Http\Controllers\Auth\Permission\PermissionController;
 use App\Http\Controllers\Admin\Report\DeadFeedReportController;
 use App\Http\Controllers\Admin\Report\DailyEntryReportController;
@@ -64,6 +67,7 @@ Route::controller(ProfileController::class)->prefix('my-profile')->group(functio
     Route::post('/update', 'update')->name('myProfile.profile.update');
 });
 
+Route::get('global/get-farm', [GlobalController::class, 'getFarm'])->name('global.getFarm');
 
 Route::resource('/user', UserController::class)->except(['show','create']);
 Route::resource('/employee-cat', EmployeeCatController::class)->except(['show','create']);
@@ -72,9 +76,10 @@ Route::resource('/farm', FarmController::class)->except(['create']);
 Route::resource('/sub-farm', SubFarmController::class)->except(['show','create']);
 Route::resource('/supplier', SupplierController::class)->except(['show','create']);
 Route::resource('/purchase', PurchaseController::class)->except(['show']);
+Route::resource('/sales', SalesController::class)->except(['show']);
 Route::get('/get-farm', [PurchaseController::class, 'getFarm'])->name('purchase.getFarm');
 Route::resource('daily-entry', DailyEntryController::class)->except(['show']);
-Route::get('daily-entry/get-farm', [DailyEntryController::class, 'getFarm'])->name('dailyEntry.getFarm');
+// Route::get('daily-entry/get-farm', [DailyEntryController::class, 'getFarm'])->name('dailyEntry.getFarm');
 
 Route::prefix('/report')->group(function(){
     Route::controller(DailyEntryReportController::class)->prefix('/daily-entry')->group(function(){
@@ -84,5 +89,9 @@ Route::prefix('/report')->group(function(){
     Route::controller(DeadFeedReportController::class)->prefix('/dead-&-feed')->group(function(){
         Route::get('/select','select')->name('report.deadFeed.select');
         Route::get('/report','report')->name('report.deadFeed.report');
+    });
+    Route::controller(SalesReportController::class)->prefix('/chicken-sales')->group(function(){
+        Route::get('/select','select')->name('report.sales.select');
+        Route::get('/report','report')->name('report.sales.report');
     });
 });

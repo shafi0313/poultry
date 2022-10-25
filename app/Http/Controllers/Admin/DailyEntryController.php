@@ -23,13 +23,6 @@ class DailyEntryController extends Controller
         return view('admin.daily_entry.create', compact('farms'));
     }
 
-    public function getFarm(Request $request)
-    {
-        $inputs = SubFarm::whereFarm_id($request->farm_id)->get();
-        $subFarms = view('admin.daily_entry.sub_farm', ['inputs' => $inputs])->render();
-        return response()->json(['status' => 'success', 'html' => $subFarms, 'subFarms']);
-    }
-
     public function store(DailyEntryStoreRequest $request)
     {
         // if ($error = $this->authorize('employee-add')) {

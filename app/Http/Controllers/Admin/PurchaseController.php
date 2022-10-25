@@ -40,7 +40,6 @@ class PurchaseController extends Controller
             'supplier_id'   => ['required'],
             'farm_id'       => ['required'],
             'sub_farm_id'   => ['required'],
-            // 'sub_farm_id'   => ['required', 'integer', 'not_in:0','regex:^[1-9][0-9]+'],
             'date'          => ['date'],
             'chicken'       => ['nullable'],
             'feed'          => ['nullable'],
