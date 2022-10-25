@@ -27,7 +27,7 @@ class DailyEntryStoreRequest extends FormRequest
             'farm_id'       => ['required'],
             'sub_farm_id'   => ['required'],
             'dead'          => ['nullable','integer'],
-            'reject'        => ['nullable','integer'],
+            // 'reject'        => ['nullable','integer'],
             'feed'          => ['nullable','integer'],
             'date'          => ['required','date'],
         ];

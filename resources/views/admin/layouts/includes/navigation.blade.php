@@ -122,17 +122,22 @@
                     </div>
                 </li>
 
-                <li class="nav-item{{ activeNav(['admin.daily-entry.*']) }} ">
+                <li class="nav-item{{ activeNav(['admin.daily-entry.*', 'admin.report.deadFeed.*']) }} ">
                     <a data-toggle="collapse" href="#report">
                         <i class="fa-solid fa-clipboard-list"></i>
                         <p>Report</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse {{ openNav(['admin.dreport.dailyEntry.*']) }}" id="report">
+                    <div class="collapse {{ openNav(['admin.report.dailyEntry.*', 'admin.report.deadFeed.*']) }}" id="report">
                         <ul class="nav nav-collapse">
                             <li class="{{ activeSubNav('admin.report.dailyEntry.*')}}">
                                 <a href="{{ route('admin.report.dailyEntry.select') }}">
                                     <span class="sub-item">Report</span>
+                                </a>
+                            </li>
+                            <li class="{{ activeSubNav('admin.report.deadFeed.*')}}">
+                                <a href="{{ route('admin.report.deadFeed.select') }}">
+                                    <span class="sub-item">Monthly Report</span>
                                 </a>
                             </li>
                             {{-- <li class="{{ activeSubNav('admin.daily-entry.create')}}">
@@ -152,13 +157,13 @@
                     </a>
                     <div class="collapse {{openNav(['admin.role.*','admin.backup.*','admin.visitorInfo.*','admin.permission.*'])}}" id="settings">
                         <ul class="nav nav-collapse">
-                            @canany('role-manage','permission-manage')
+                            {{-- @canany('role-manage','permission-manage')
                             <li class="{{ activeSubNav('admin.role.*','admin.permission.*')}}">
                                 <a href="{{ route('admin.role.index') }}">
                                     <span class="sub-item">@lang('nav.role-permission')</span>
                                 </a>
                             </li>
-                            @endcanany
+                            @endcanany --}}
                             @canany('backup-manage')
                             <li class="{{ activeSubNav('admin.backup.*')}}">
                                 <a href="{{ route('admin.backup.password') }}">

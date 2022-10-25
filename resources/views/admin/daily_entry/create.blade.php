@@ -72,7 +72,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="dead">Dead</label>
+                                                <label for="dead">Dead Chicken</label>
                                                 <input type="number" name="dead" class="form-control"
                                                     value="{{ old('dead') }}">
                                                 @if ($errors->has('dead'))
@@ -82,17 +82,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="reject">Reject</label>
-                                                <input type="number" name="reject" class="form-control"
-                                                    value="{{ old('reject') }}">
-                                                @if ($errors->has('reject'))
-                                                    <div class="alert alert-danger">{{ $errors->first('reject') }}</div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="feed">Feed</label>
+                                                <label for="feed">Used Feed</label>
                                                 <input type="number" name="feed" class="form-control"
                                                     value="{{ old('feed') }}">
                                                 @if ($errors->has('feed'))

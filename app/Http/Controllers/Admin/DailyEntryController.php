@@ -38,7 +38,24 @@ class DailyEntryController extends Controller
         DB::beginTransaction();
         $data = $request->validated();
         $data['user_id'] = user()->id;
-        DailyEntry::create($data);
+        if(DailyEntry::whereDate('date',$request->date)->whereFarm_id($request->farm_id)->whereSub_farm_id($request->sub_farm_id)->first()){
+            DailyEntry::whereDate('date',$request->date)->whereFarm_id($request->farm_id)->whereSub_farm_id($request->sub_farm_id)->update($data);
+        }else{
+            DailyEntry::create($data);
+        }
+        $dailyEntryCheck = DailyEntry::whereDate('date',$request->date)->whereFarm_id($request->farm_id)->get('sub_farm_id');
+        $subFarms = SubFarm::whereFarm_id($request->farm_id)->whereNotIn('id',$dailyEntryCheck)->get()->pluck('id');
+        foreach($subFarms as $subFarm){
+            $nullData = [
+                'user_id' => user()->id,
+                'farm_id' => $request->farm_id,
+                'sub_farm_id' => $subFarm,
+                'date' => $request->date,
+                'dead' => 0,
+                'feed' => 0,
+            ];
+            DailyEntry::create($nullData);
+        }
         try {
             DB::commit();
             return response()->json(['message'=> 'Data Successfully Inserted'], 200);

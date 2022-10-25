@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\DailyEntryController;
 use App\Http\Controllers\Admin\EmployeeCatController;
 use App\Http\Controllers\Admin\VisitorInfoController;
 use App\Http\Controllers\Auth\Permission\PermissionController;
+use App\Http\Controllers\Admin\Report\DeadFeedReportController;
 use App\Http\Controllers\Admin\Report\DailyEntryReportController;
 
 Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -80,5 +81,8 @@ Route::prefix('/report')->group(function(){
         Route::get('/select','select')->name('report.dailyEntry.select');
         Route::get('/report','report')->name('report.dailyEntry.report');
     });
-
+    Route::controller(DeadFeedReportController::class)->prefix('/dead-&-feed')->group(function(){
+        Route::get('/select','select')->name('report.deadFeed.select');
+        Route::get('/report','report')->name('report.deadFeed.report');
+    });
 });
