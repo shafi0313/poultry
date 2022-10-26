@@ -10,9 +10,9 @@
             background: rgb(96, 255, 130)
         }
 
-        /* .date {
+       .date {
             background: rgb(223, 223, 223)
-        } */
+        }
         .total {
             background: rgb(252, 255, 85)
         } */
@@ -54,7 +54,7 @@
                                                         @php
                                                             $roomNo = $gRoomNo->first();
                                                         @endphp
-                                                        <th>{{ $roomNo->subFarm->room_no }}</th>
+                                                        <th>R{{ $roomNo->subFarm->room_no }} ({{ $roomNo->chicken }})</th>
                                                     @endforeach
                                                     <td>Total D/F</td>
                                                 </tr>
@@ -86,17 +86,24 @@
                                             </tr>
                                             <tr style="font-weight: bold">
                                                 <td colspan="3" class="total">Dead</td>
-                                                @foreach ($dailyEntries->groupBy('sub_farm_id') as $dailyEntry)
-                                                    <td class="dead">{{ $dailyEntry->sum('dead') }}</td>
+                                                @foreach ($sales->groupBy('sub_farm_id') as $sale)
+                                                    <td class="dead">{{ $sale->sum('dead') }}</td>
                                                 @endforeach
-                                                <td class="dead">{{ $dailyEntries->sum('dead') }}</td>
+                                                <td class="dead">{{ $sales->sum('dead') }}</td>
                                             </tr>
                                             <tr style="font-weight: bold">
                                                 <td colspan="3" class="total">Adjust</td>
-                                                @foreach ($dailyEntries->groupBy('sub_farm_id') as $dailyEntry)
-                                                    <td class="dead">{{ $dailyEntry->sum('dead') }}</td>
+                                                @foreach ($sales->groupBy('sub_farm_id') as $sale)
+                                                    <td class="dead">{{ $sale->sum('quantity') + $sale->sum('dead') }}</td>
                                                 @endforeach
-                                                <td class="dead">{{ $dailyEntries->sum('dead') }}</td>
+                                                <td class="dead">{{ $sales->sum('quantity') + $sales->sum('dead') }}</td>
+                                            </tr>
+                                            <tr style="font-weight: bold">
+                                                <td colspan="3" class="total">Short</td>
+                                                @foreach ($sales->groupBy('sub_farm_id') as $sale)
+                                                    <td class="dead">{{ $sale->first()->chicken - ($sale->sum('quantity') + $sale->sum('dead')) }}</td>
+                                                @endforeach
+                                                <td class="dead">{{ $sales->sum('chicken') - ($sales->sum('quantity') + $sales->sum('dead')) }}</td>
                                             </tr>
                                         </table>
                                     </div>

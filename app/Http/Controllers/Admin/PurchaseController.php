@@ -24,7 +24,7 @@ class PurchaseController extends Controller
     {
         $suppliers = Supplier::all(['id', 'name']);
         $farms = Farm::all(['id', 'name']);
-        return view('admin.purchase.create', compact('suppliers','farms'));
+        return view('admin.purchase.create', compact('suppliers', 'farms'));
     }
 
     public function getFarm(Request $request)
@@ -36,7 +36,7 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'supplier_id'   => ['required'],
             'farm_id'       => ['required'],
             'sub_farm_id'   => ['required'],
@@ -47,21 +47,18 @@ class PurchaseController extends Controller
         DB::beginTransaction();
         $tran = transaction_id();
         foreach ($request->sub_farm_id as $k => $v) {
-                $data = [
-                    'user_id' => user()->id,
-                    'type' => $request->type,
-                    'supplier_id' => $request->supplier_id,
-                    'farm_id' => $request->farm_id,
-                    'date' => $request->date,
-                    'sub_farm_id' => $request->sub_farm_id[$k],
-                    'chicken' => $request->chicken[$k],
-                    'feed' => $request->feed[$k],
-                    'tran' => $tran,
-                ];
-            // if ($v > 0) {
-                Purchase::create($data);
-            // }
-
+            $data = [
+                'user_id' => user()->id,
+                'type' => $request->type,
+                'supplier_id' => $request->supplier_id,
+                'farm_id' => $request->farm_id,
+                'date' => $request->date,
+                'sub_farm_id' => $request->sub_farm_id[$k],
+                'chicken' => $request->chicken[$k],
+                'feed' => $request->feed[$k],
+                'tran' => $tran,
+            ];
+            Purchase::create($data);
         }
         try {
             DB::commit();
