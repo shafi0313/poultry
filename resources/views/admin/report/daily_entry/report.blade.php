@@ -32,20 +32,14 @@
                                             class="display table table-striped table-hover text-center">
                                             <thead class="bg-secondary thw">
                                                 <tr>
-                                                    <th>SL</th>
-                                                    <th>Sub Farm</th>
-                                                    <th>Dead</th>
-                                                    <th>Balance Chicken</th>
+                                                    <th>Room No</th>
+                                                    <th>Dead Chicken</th>
                                                     <th>Used Feed</th>
-                                                    <th>Balance Feed</th>
+                                                    <th>Feed Remaining</th>
+                                                    <th>Chicken Remaining</th>
                                                 </tr>
                                             </thead>
-                                            @php
-                                                $x = 1;
-                                            @endphp
-
                                             <tbody>
-
                                                 @foreach ($purchases as $purchase)
                                                     @php
                                                         $dateTotal = $purchase->dailyEntries->where('sub_farm_id', $purchase->sub_farm_id)->where('date', '<=', [$start_date, $end_date]);
@@ -64,24 +58,21 @@
                                                         <input type="text" class="balanceChicken"
                                                             value="{{ $balanceChicken }}">
                                                     </div>
-
                                                     <tr>
-                                                        <td>{{ $x++ }}</td>
                                                         <td>{{ $purchase->subFarm->room_no }}</td>
                                                         <td>{{ $dateTotal->sum('dead') ?? 0 }}</td>
-                                                        <td>{{ $purchase->chicken - $dead }}</td>
                                                         <td>{{ $dateTotal->sum('feed') ?? 0 }}</td>
                                                         <td>{{ $balanceFeed }}</td>
+                                                        <td>{{ $purchase->chicken - $dead }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                             <tr style="font-weight: bold" class="bg-success">
-                                                <td></td>
                                                 <td class="text-right">Total: </td>
                                                 <td id="dead"></td>
-                                                <td id="balanceChicken"></td>
                                                 <td id="feed"></td>
                                                 <td id="balanceFeed"></td>
+                                                <td id="balanceChicken"></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -103,12 +94,6 @@
                         dead += parseFloat($(this).val());
                     });
                     $('#dead').text(dead)
-
-                    let reject = 0;
-                    $('.reject').each(function() {
-                        reject += parseFloat($(this).val());
-                    });
-                    $('#reject').text(reject)
 
                     let feed = 0;
                     $('.feed').each(function() {

@@ -22,7 +22,6 @@ class SalesReportController extends Controller
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         $sales = Sales::with(['farm','subFarm'])
-        // return $sales = DB::table('sales')
             ->select('daily_entries.id', 'daily_entries.farm_id', 'daily_entries.sub_farm_id', 'daily_entries.date as d_date', 'daily_entries.status', 'daily_entries.dead', 'daily_entries.feed',
             'sales.id', 'sales.farm_id', 'sales.sub_farm_id', 'sales.status', 'sales.date', 'sales.do', 'sales.crate', 'sales.quantity',
             'purchases.chicken', 'purchases.feed as p_feed', 'purchases.date as p_date')
@@ -35,22 +34,12 @@ class SalesReportController extends Controller
                 $join->on('sales.farm_id', '=', 'purchases.farm_id')
                 ->on('sales.sub_farm_id', '=', 'purchases.sub_farm_id');
             })
-            // ->join('daily_entries', 'sales.sub_farm_id', 'sales.farm_id', '=', 'daily_entries.sub_farm_id', 'daily_entries.farm_id')
-            // ->join('daily_entries', 'sales.farm_id', '=', 'daily_entries.farm_id')
-            // ->whereBetween('sales.date', [$request->start_date, $request->end_date])
             ->where('sales.farm_id', $request->farm_id)
             ->where('sales.status', 0)
             ->where('daily_entries.status', 0)
             ->where('purchases.status', 0)
             ->orderBy('sales.sub_farm_id')
             ->get();
-
-        // $dailyEntries = DailyEntry::with(['farm','subFarm'])
-        //                     ->whereFarm_id($request->farm_id)
-        //                     ->whereStatus(0)
-        //                     ->orderBy('sub_farm_id')
-        //                     ->get();
-
         return view('admin.report.sales.report', compact('sales', 'start_date', 'end_date'));
     }
 }
