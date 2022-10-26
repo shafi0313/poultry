@@ -32,20 +32,6 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
-                                        {{-- <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Type <span
-                                                        class="t_r">*</span></label>
-                                                <select class="form-control select2" name="type" required>
-                                                    <option selected value disabled>Select</option>
-                                                    <option value="chicken">Chicken</option>
-                                                    <option value="feed">Feed</option>
-                                                </select>
-                                                @if ($errors->has('type'))
-                                                    <div class="alert alert-danger">{{ $errors->first('type') }}</div>
-                                                @endif
-                                            </div>
-                                        </div> --}}
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Supplier <span
@@ -87,11 +73,10 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-12">
+                                        <div class="col-sm-12">
                                             <table class="table table-striped table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>SL</th>
                                                         <th>Room No</th>
                                                         <th>Name</th>
                                                         <th>Chicken</th>
@@ -100,7 +85,7 @@
                                                 </thead>
                                                 <tbody class="subFarms" id="subFarms"></tbody>
                                                 <tfoot>
-                                                    <td colspan="3" class="text-right">Total</td>
+                                                    <td colspan="2" class="text-right">Total</td>
                                                     <td id="chickenTotal"></td>
                                                     <td id="feedTotal"></td>
                                                 </tfoot>

@@ -76,8 +76,9 @@ Route::resource('/farm', FarmController::class)->except(['create']);
 Route::resource('/sub-farm', SubFarmController::class)->except(['show','create']);
 Route::resource('/supplier', SupplierController::class)->except(['show','create']);
 Route::resource('/purchase', PurchaseController::class)->except(['show']);
+Route::get('purchase/get-farm', [PurchaseController::class, 'getFarm'])->name('purchase.getFarm');
 Route::resource('/sales', SalesController::class)->except(['show']);
-Route::get('/get-farm', [PurchaseController::class, 'getFarm'])->name('purchase.getFarm');
+Route::get('sales/get-farm', [SalesController::class, 'getSubFarm'])->name('sales.getFarm');
 Route::resource('daily-entry', DailyEntryController::class)->except(['show']);
 // Route::get('daily-entry/get-farm', [DailyEntryController::class, 'getFarm'])->name('dailyEntry.getFarm');
 

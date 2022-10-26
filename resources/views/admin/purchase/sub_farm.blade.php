@@ -5,7 +5,6 @@
 
     <tr>
         <input type="hidden" name="sub_farm_id[]" value="{{ $input->id }}">
-        <td>{{ $x++ }}</td>
         <td>{{ $input->room_no }}</td>
         <td>{{ $input->name }}</td>
         <td><input class="form-control chicken" type="number" value="0" name="chicken[]"></td>
@@ -18,7 +17,6 @@
         $('.chicken').each(function() {
             subtotal += parseFloat($(this).val());
         });
-        // console.log($(this).val())
         $('#chickenTotal').text(subtotal);
     })
     $('.feed').keyup(function() {
@@ -26,7 +24,6 @@
         $('.feed').each(function() {
             subtotal += parseFloat($(this).val());
         });
-        // console.log($(this).val())
         $('#feedTotal').text(subtotal);
     })
 </script>

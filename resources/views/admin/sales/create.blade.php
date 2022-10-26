@@ -62,21 +62,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="sub_farm_id">Sub Farm <span class="t_r">*</span></label>
-                                                <select class="form-control select2" name="sub_farm_id" id="sub_farm_id"
-                                                    required>
-                                                    <option selected value disabled>Select</option>
-                                                </select>
-                                                @if ($errors->has('sub_farm_id'))
-                                                    <div class="alert alert-danger">{{ $errors->first('sub_farm_id') }}
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
-
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="date">Date <span class="t_r">*</span></label>
@@ -90,7 +75,7 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="do">Delivery Order <span class="t_r">*</span></label>
+                                                <label for="do">D.O. <span class="t_r">*</span></label>
                                                 <input type="number" class="form-control" name="do"
                                                     value="{{ old('do') }}" required>
                                                 @if ($errors->has('do'))
@@ -109,16 +94,21 @@
                                                 @endif
                                             </div>
                                         </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="quantity">Quantity <span class="t_r">*</span></label>
-                                                <input type="number" class="form-control" name="quantity"
-                                                    value="{{ old('quantity') }}" required>
-                                                @if ($errors->has('quantity'))
-                                                    <div class="alert alert-danger">{{ $errors->first('quantity') }}</div>
-                                                @endif
-                                            </div>
+                                        <div class="col-sm-12">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Room No</th>
+                                                        <th>Name</th>
+                                                        <th>Chicken</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="subFarms" id="subFarms"></tbody>
+                                                <tfoot>
+                                                    <td colspan="2" class="text-right">Total</td>
+                                                    <td id="quantityTotal"></td>
+                                                </tfoot>
+                                            </table>
                                         </div>
 
                                     </div>
@@ -139,18 +129,18 @@
         <script>
             $('#farm_id').change(function() {
                 $.ajax({
-                    url: '{{ route('admin.global.getFarm') }}',
+                    url: '{{ route('admin.sales.getFarm') }}',
                     method: 'get',
                     data: {
                         farm_id: $(this).val(),
                     },
                     success: function(res) {
                         if (res.status == 'success') {
-                            $('#sub_farm_id').html(res.html);
+                            $('#subFarms').html(res.html);
                         }
                     }
                 });
-            });
+            })
 
             $("#submitForm").on('submit', function(e) {
                 e.preventDefault();
