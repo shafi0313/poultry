@@ -42,17 +42,22 @@
                     </div>
                 </li>
 
-                <li class="nav-item{{ activeNav(['admin.employee-cat.*']) }} ">
+                <li class="nav-item{{ activeNav(['admin.employee-cat.*', 'admin.expense-cat.*']) }} ">
                     <a data-toggle="collapse" href="#category">
                         <i class="fa-solid fa-list-ul"></i>
                         <p>Category</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse {{ openNav(['admin.employee-cat.*']) }}" id="category">
+                    <div class="collapse {{ openNav(['admin.employee-cat.*', 'admin.expense-cat.*']) }}" id="category">
                         <ul class="nav nav-collapse">
                             <li class="{{ activeSubNav('admin.employee-cat.index')}}">
                                 <a href="{{ route('admin.employee-cat.index') }}">
                                     <span class="sub-item">Employee Category</span>
+                                </a>
+                            </li>
+                            <li class="{{ activeSubNav('admin.expense-cat.index')}}">
+                                <a href="{{ route('admin.expense-cat.index') }}">
+                                    <span class="sub-item">Expense Category</span>
                                 </a>
                             </li>
                         </ul>
