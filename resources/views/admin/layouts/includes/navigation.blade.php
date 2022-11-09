@@ -171,6 +171,23 @@
                     </div>
                 </li>
 
+                <li class="nav-item{{ activeNav(['admin.purchase.*']) }} ">
+                    <a data-toggle="collapse" href="#expense">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <p>Expense</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse {{ openNav(['admin.purchase.*']) }}" id="expense">
+                        <ul class="nav nav-collapse">
+                            <li class="{{ activeSubNav('admin.purchase.create')}}">
+                                <a href="{{ route('admin.purchase.create') }}">
+                                    <span class="sub-item">Add Expense</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
                 <li class="nav-item{{ activeNav(['admin.daily-entry.*', 'admin.report.deadFeed.*','admin.report.sales.*']) }} ">
                     <a data-toggle="collapse" href="#report">
                         <i class="fa-solid fa-clipboard-list"></i>

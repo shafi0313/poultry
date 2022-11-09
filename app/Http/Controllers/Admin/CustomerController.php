@@ -6,6 +6,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\CustomerStoreRequest;
 
 class CustomerController extends Controller
 {
@@ -37,16 +38,12 @@ class CustomerController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(CustomerStoreRequest $request)
     {
         // if ($error = $this->authorize('employee-cat-add')) {
         //     return $error;
         // }
-        $data = $request->validate([
-            'name' => 'nullable',
-            'phone' => 'nullable',
-            'address' => 'nullable',
-        ]);
+        $data = $request->validated();
 
         try {
             Customer::create($data);

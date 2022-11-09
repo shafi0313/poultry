@@ -28,7 +28,7 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form action="{{ route('admin.personal-sales.store') }}" method="post">
+                            <form id="submitForm">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
@@ -36,8 +36,9 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Customer <span
                                                         class="t_r">*</span></label>
-                                                <select class="form-control select2" name="customer_id" required>
+                                                <select class="form-control select2" name="customer_id" id="customer" required>
                                                     <option selected value disabled>Select</option>
+                                                    <option value="0">Add New</option>
                                                     @foreach ($customers as $customer)
                                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                                     @endforeach
@@ -45,6 +46,34 @@
                                                 @if ($errors->has('customer_id'))
                                                     <div class="alert alert-danger">{{ $errors->first('customer_id') }}
                                                     </div>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 addNew" style="display: none">
+                                            <div class="form-group">
+                                                <label for="name">Customer Name <span class="t_r">*</span></label>
+                                                <input type="text" name="name" class="form-control" value="{{ old('name') }}" id="customerName" placeholder="Enter name" required>
+                                                @if ($errors->has('name'))
+                                                    <div class="alert alert-danger">{{ $errors->first('name') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 addNew" style="display: none">
+                                            <div class="form-group">
+                                                <label for="phone">Phone</label>
+                                                <input type="text" name="phone" class="form-control" value="{{ old('phone') }}" placeholder="Enter phone">
+                                                @if ($errors->has('phone'))
+                                                    <div class="alert alert-danger">{{ $errors->first('phone') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 addNew" style="display: none">
+                                            <div class="form-group">
+                                                <label for="address">address</label>
+                                                <input type="text" name="address" class="form-control" value="{{ old('address') }}" placeholder="Enter address">
+                                                @if ($errors->has('address'))
+                                                    <div class="alert alert-danger">{{ $errors->first('address') }}</div>
                                                 @endif
                                             </div>
                                         </div>
@@ -86,6 +115,15 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label for="age">Age <span class="t_r">*</span></label>
+                                                <input type="number" class="form-control" name="age" value="{{ old('age') }}" required id="age">
+                                                @if ($errors->has('age'))
+                                                    <div class="alert alert-danger">{{ $errors->first('age') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
                                                 <label for="quantity">PCS <span class="t_r">*</span></label>
                                                 <input type="number" class="form-control" name="quantity" value="{{ old('quantity') }}" required id="quantity">
                                                 @if ($errors->has('quantity'))
@@ -104,8 +142,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">T. Wt. <span class="t_r">*</span></label>
-                                                <input type="number" class="form-control" name="" value="" readonly id="avg_weight">
+                                                <label for="">Avg. Wt. <span class="t_r">*</span></label>
+                                                <input type="number" class="form-control" readonly id="avg_weight">
                                                 @if ($errors->has(''))
                                                     <div class="alert alert-danger">{{ $errors->first('') }}</div>
                                                 @endif
@@ -123,7 +161,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Amount <span class="t_r">*</span></label>
-                                                <input type="number" class="form-control" name="" value="" readonly id="amount">
+                                                <input type="number" class="form-control" readonly id="amount">
                                                 @if ($errors->has(''))
                                                     <div class="alert alert-danger">{{ $errors->first('') }}</div>
                                                 @endif
@@ -160,6 +198,18 @@
                 });
             })
 
+            $("#customer").change(function(){
+                let customer = $(this).val();
+                if(customer == 0){
+                    // $("#customerName").
+                    $(".addNew").show()
+                }else{
+                    $(".addNew").hide()
+                }
+            })
+
+
+
             $("#quantity, #weight").keyup(function(){
                 let quantity = $("#quantity").val();
                 let weight = $("#weight").val();
@@ -173,6 +223,42 @@
                 let amount = Number.parseFloat(price * weight).toFixed(2)
                 $("#amount").val(amount);
             })
+
+            $("#submitForm").on('submit', function(e){
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route('admin.personal-sales.store') }}',
+                    data: formData,
+                    // processData: false,
+                    // contentType: false,
+                    success: res => {
+                        $("[name='age']").val('');
+                        $("[name='quantity']").val('');
+                        $("[name='weight']").val('');
+                        $("[name='price']").val('');
+                        swal({
+                            icon: 'success',
+                            title: 'Success',
+                            text: res.message
+                        }).then((confirm) => {
+                            // if (confirm) {
+                                // $('.table').DataTable().ajax.reload();
+                                // $("#" + modal).modal('hide');
+                                // $(form).trigger("reset");
+                            // }
+                        });
+                    },
+                    error: err => {
+                        swal({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: err.responseJSON.message
+                        });
+                    }
+                });
+            });
         </script>
     @endpush
 @endsection

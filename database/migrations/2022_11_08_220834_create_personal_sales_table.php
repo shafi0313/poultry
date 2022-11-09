@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('customer_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name', 80)->nullable();
-            $table->string('phone', 80)->nullable();
-            $table->string('address', 80)->nullable();
+            $table->foreignId('farm_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('sub_farm_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->tinyInteger('age');
             $table->integer('quantity');
             $table->decimal('weight',8,3);
