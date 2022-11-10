@@ -203,8 +203,10 @@
                 if(customer == 0){
                     // $("#customerName").
                     $(".addNew").show()
+                    $("[name='name']").attr("disabled", false)
                 }else{
                     $(".addNew").hide()
+                    $("[name='name']").attr("disabled", true)
                 }
             })
 
@@ -238,6 +240,9 @@
                         $("[name='quantity']").val('');
                         $("[name='weight']").val('');
                         $("[name='price']").val('');
+                        $("#weight").val('');
+                        $("#avg_weight").val('');
+                        $("#amount").val('');
                         swal({
                             icon: 'success',
                             title: 'Success',
