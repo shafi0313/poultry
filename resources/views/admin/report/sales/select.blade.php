@@ -46,7 +46,7 @@
 
                                         {{-- <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="sub_farm_id">Sub Farm <span class="t_r">*</span></label>
+                                                <label for="sub_farm_id">Room No <span class="t_r">*</span></label>
                                                 <select class="form-control select2" name="sub_farm_id" id="sub_farm_id"
                                                     required>
                                                     <option selected value disabled>Select</option>

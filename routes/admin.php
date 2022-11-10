@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\Admin\BackupController;
 use App\Http\Controllers\Admin\GlobalController;
+use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SubFarmController;
 use App\Http\Controllers\Admin\CustomerController;
@@ -75,6 +76,7 @@ Route::get('global/get-farm', [GlobalController::class, 'getFarm'])->name('globa
 Route::resource('/user', UserController::class)->except(['show','create']);
 Route::resource('/employee-cat', EmployeeCatController::class)->except(['show','create']);
 Route::resource('/expense-cat', ExpenseCatController::class)->except(['show','create']);
+Route::resource('/expense', ExpenseController::class)->except(['show']);
 Route::resource('/employee', EmployeeController::class)->except(['show','create']);
 Route::resource('/farm', FarmController::class)->except(['create']);
 Route::resource('/sub-farm', SubFarmController::class)->except(['show','create']);

@@ -171,16 +171,21 @@
                     </div>
                 </li>
 
-                <li class="nav-item{{ activeNav(['admin.purchase.*']) }} ">
+                <li class="nav-item{{ activeNav(['admin.expense.*']) }} ">
                     <a data-toggle="collapse" href="#expense">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <p>Expense</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse {{ openNav(['admin.purchase.*']) }}" id="expense">
+                    <div class="collapse {{ openNav(['admin.expense.*']) }}" id="expense">
                         <ul class="nav nav-collapse">
-                            <li class="{{ activeSubNav('admin.purchase.create')}}">
-                                <a href="{{ route('admin.purchase.create') }}">
+                            <li class="{{ activeSubNav('admin.expense.index')}}">
+                                <a href="{{ route('admin.expense.index') }}">
+                                    <span class="sub-item">Expense List</span>
+                                </a>
+                            </li>
+                            <li class="{{ activeSubNav('admin.expense.create')}}">
+                                <a href="{{ route('admin.expense.create') }}">
                                     <span class="sub-item">Add Expense</span>
                                 </a>
                             </li>

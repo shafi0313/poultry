@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Sub Farm')
+@section('title', 'Room No')
 @section('content')
 <div class="main-panel">
     <div class="content">
@@ -17,7 +17,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Edit Sub Farm</div>
+                            <div class="card-title">Edit Room No</div>
                         </div>
                         <form action="{{ route('admin.sub-farm.update', $subFarm->id) }}" method="post">
                             @csrf

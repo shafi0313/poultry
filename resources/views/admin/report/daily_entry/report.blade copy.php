@@ -32,7 +32,7 @@
                                     <thead class="bg-secondary thw">
                                         <tr>
                                             <th>SL</th>
-                                            <th>Sub Farm</th>
+                                            <th>Room No</th>
                                             <th>Dead</th>
                                             <th>Reject</th>
                                             <th>Balance Chicken</th>

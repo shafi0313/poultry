@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Farms & Sub Farms')
+@section('title', 'Farms & Room Nos')
 @section('content')
 
 <div class="main-panel">
@@ -9,7 +9,7 @@
                 <ul class="breadcrumbs">
                     <li class="nav-home"><a href="{{ route('admin.dashboard') }}"><i class="flaticon-home"></i></a></li>
                     <li class="separator"><i class="flaticon-right-arrow"></i></li>
-                    <li class="nav-item">Farms & Sub Farms</li>
+                    <li class="nav-item">Farms & Room Nos</li>
                 </ul>
             </div>
 
@@ -48,7 +48,7 @@
                                             <td>{{ bdDate($farm->created_at) }}</td>
                                             <td class="text-right">
                                                 <div class="form-button-action">
-                                                    <span class="btn btn-danger btn-sm addSubFarm" data-toggle="modal" data-target="#addSubFarm" data-id="{{$farm->id}}" data-farm-name="{{ $farm->name }}">Add Sub Farm</span>
+                                                    <span class="btn btn-danger btn-sm addSubFarm" data-toggle="modal" data-target="#addSubFarm" data-id="{{$farm->id}}" data-farm-name="{{ $farm->name }}">Add Room No</span>
                                                     <span class="btn btn-info btn-sm editFarm" data-toggle="modal" data-target="#editFarm" data-url="{{route('admin.farm.update', $farm->id)}}" data-name="{{$farm->name}}"><i class="fa fa-edit"></i></span>
                                                     {{-- <form action="" method="POST">
                                                         @csrf
@@ -219,7 +219,7 @@
       @csrf @method('PUT')
        <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="editLabel" style="color:red;">Edit Sub Farm</h5>
+              <h5 class="modal-title" id="editLabel" style="color:red;">Edit Room No</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>

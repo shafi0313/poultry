@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Daily Entry List')
+@section('title', 'Expense List')
 @section('content')
 
 <div class="main-panel">
@@ -9,7 +9,7 @@
                 <ul class="breadcrumbs">
                     <li class="nav-home"><a href="{{ route('admin.dashboard') }}"><i class="flaticon-home"></i></a></li>
                     <li class="separator"><i class="flaticon-right-arrow"></i></li>
-                    <li class="nav-item">Daily Ent List</li>
+                    <li class="nav-item">Expense List</li>
                 </ul>
             </div>
 
@@ -19,9 +19,9 @@
                         <div class="card-header">
                             <div class="d-flex align-items-center">
                                 <h4 class="card-title">Add Row</h4>
-                                <button class="btn btn-primary ml-auto" data-toggle="modal" data-target="#dailyEntryModal">
-                                    Add dailyEntry
-                                  </button>
+                                <a href="{{ route('admin.expense.create') }}" class="btn btn-primary ml-auto">
+                                    Add Expense
+                                  </a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -30,29 +30,27 @@
                                     <thead class="bg-secondary thw">
                                         <tr>
                                             <th>SL</th>
+                                            <th>Expense</th>
                                             <th>Farm</th>
                                             <th>Room No</th>
                                             <th>Date</th>
-                                            <th>Dead</th>
-                                            <th>Reject</th>
-                                            <th>Feed</th>
+                                            <th>Amount</th>
                                             <th class="no-sort" width="40px">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php $x = 1 @endphp
-                                        @foreach ($dailyEntries as $dailyEntry)
+                                        @foreach ($expenses as $expense)
                                         <tr>
                                             <td >{{ $x++ }}</td>
-                                            <td>{{ $dailyEntry->farm->name }}</td>
-                                            <td>{{ $dailyEntry->subFarm->room_no }}</td>
-                                            <td>{{ bdDate($dailyEntry->date) }}</td>
-                                            <td>{{ $dailyEntry->dead }}</td>
-                                            <td>{{ $dailyEntry->reject }}</td>
-                                            <td>{{ $dailyEntry->feed }}</td>
+                                            <td>{{ $expense->expenseCat->name }}</td>
+                                            <td>{{ $expense->farm->name }}</td>
+                                            <td>{{ $expense->subFarm->room_no ?? ''}}</td>
+                                            <td>{{ bdDate($expense->date) }}</td>
+                                            <td>{{ $expense->amount }}</td>
                                             <td class="text-right">
                                                 <div class="form-button-action">
-                                                    <a href="{{route('admin.daily-entry.edit', $dailyEntry->id)}}" title="Edit" class="btn btn-link btn-primary">
+                                                    <a href="{{route('admin.daily-entry.edit', $expense->id)}}" title="Edit" class="btn btn-link btn-primary">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                     <form>
