@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\Report\SalesReportController;
 use App\Http\Controllers\Auth\Permission\PermissionController;
 use App\Http\Controllers\Admin\Report\DeadFeedReportController;
 use App\Http\Controllers\Admin\Report\DailyEntryReportController;
+use App\Http\Controllers\Admin\Report\PersonalSalesReportController;
 
 Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
 
@@ -102,5 +103,9 @@ Route::prefix('/report')->group(function(){
     Route::controller(SalesReportController::class)->prefix('/chicken-sales')->group(function(){
         Route::get('/select','select')->name('report.sales.select');
         Route::get('/report','report')->name('report.sales.report');
+    });
+    Route::controller(PersonalSalesReportController::class)->prefix('/personal-sales')->group(function(){
+        Route::get('/select','select')->name('report.personalSales.select');
+        Route::get('/report','report')->name('report.personalSales.report');
     });
 });

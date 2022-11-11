@@ -193,13 +193,13 @@
                     </div>
                 </li>
 
-                <li class="nav-item{{ activeNav(['admin.daily-entry.*', 'admin.report.deadFeed.*','admin.report.sales.*']) }} ">
+                <li class="nav-item{{ activeNav(['admin.daily-entry.*', 'admin.report.deadFeed.*','admin.report.sales.*','admin.report.personalSales.*']) }} ">
                     <a data-toggle="collapse" href="#report">
                         <i class="fa-solid fa-clipboard-list"></i>
                         <p>Report</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse {{ openNav(['admin.report.dailyEntry.*', 'admin.report.deadFeed.*','admin.report.sales.*']) }}" id="report">
+                    <div class="collapse {{ openNav(['admin.report.dailyEntry.*', 'admin.report.deadFeed.*','admin.report.sales.*','admin.report.personalSales.*']) }}" id="report">
                         <ul class="nav nav-collapse">
                             <li class="{{ activeSubNav('admin.report.dailyEntry.*')}}">
                                 <a href="{{ route('admin.report.dailyEntry.select') }}">
@@ -214,6 +214,11 @@
                             <li class="{{ activeSubNav('admin.report.sales.*')}}">
                                 <a href="{{ route('admin.report.sales.select') }}">
                                     <span class="sub-item">Chicken Sales</span>
+                                </a>
+                            </li>
+                            <li class="{{ activeSubNav('admin.report.personalSales.*')}}">
+                                <a href="{{ route('admin.report.personalSales.select') }}">
+                                    <span class="sub-item">Personal Sales</span>
                                 </a>
                             </li>
                         </ul>

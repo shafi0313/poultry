@@ -10,4 +10,17 @@ class PersonalSales extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = ['id'];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+    public function farm()
+    {
+        return $this->belongsTo(Farm::class);
+    }
+    public function subFarm()
+    {
+        return $this->belongsTo(SubFarm::class, 'sub_farm_id');
+    }
 }
