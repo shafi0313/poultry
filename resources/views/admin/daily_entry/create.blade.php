@@ -74,7 +74,7 @@
                                             <div class="form-group">
                                                 <label for="dead">Dead Chicken</label>
                                                 <input type="number" name="dead" class="form-control"
-                                                    value="{{ old('dead') }}">
+                                                    value="{{ old('dead') }}"  step="any">
                                                 @if ($errors->has('dead'))
                                                     <div class="alert alert-danger">{{ $errors->first('dead') }}</div>
                                                 @endif
@@ -83,7 +83,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="feed">Used Feed</label>
-                                                <input type="number" name="feed" class="form-control"
+                                                <input type="number" name="feed" step="any" class="form-control"
                                                     value="{{ old('feed') }}">
                                                 @if ($errors->has('feed'))
                                                     <div class="alert alert-danger">{{ $errors->first('feed') }}</div>

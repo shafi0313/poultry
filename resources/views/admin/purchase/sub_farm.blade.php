@@ -7,8 +7,8 @@
         <input type="hidden" name="sub_farm_id[]" value="{{ $input->id }}">
         <td>{{ $input->room_no }}</td>
         <td>{{ $input->name }}</td>
-        <td><input class="form-control chicken" type="number" value="0" name="chicken[]"></td>
-        <td><input class="form-control feed" type="number" value="0" name="feed[]"></td>
+        <td><input class="form-control chicken" step="any" type="number" value="0" name="chicken[]"></td>
+        <td><input class="form-control feed" step="any" type="number" value="0" name="feed[]"></td>
     </tr>
 @endforeach
 <script>
