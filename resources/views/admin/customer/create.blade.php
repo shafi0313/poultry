@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name">Name <span class="t_r">*</span></label>
                             <input type="text" name="name" class="form-control" value="{{ old('name') }}" placeholder="Enter name" required>
                             @if ($errors->has('name'))
                                 <div class="alert alert-danger">{{ $errors->first('name') }}</div>
@@ -23,7 +23,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="phone">Phone</label>
-                            <input type="text" name="phone" class="form-control" value="{{ old('phone') }}" placeholder="Enter phone" required>
+                            <input type="text" name="phone" class="form-control" value="{{ old('phone') }}" placeholder="Enter phone">
                             @if ($errors->has('phone'))
                                 <div class="alert alert-danger">{{ $errors->first('phone') }}</div>
                             @endif
@@ -31,8 +31,8 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="address">address</label>
-                            <input type="text" name="address" class="form-control" value="{{ old('address') }}" placeholder="Enter address" required>
+                            <label for="address">Address</label>
+                            <input type="text" name="address" class="form-control" value="{{ old('address') }}" placeholder="Enter address">
                             @if ($errors->has('address'))
                                 <div class="alert alert-danger">{{ $errors->first('address') }}</div>
                             @endif

@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\ExpenseCatController;
 use App\Http\Controllers\Admin\EmployeeCatController;
 use App\Http\Controllers\Admin\VisitorInfoController;
 use App\Http\Controllers\Admin\PersonalSalesController;
+use App\Http\Controllers\Admin\DailyEntryMultiController;
 use App\Http\Controllers\Admin\Report\SalesReportController;
 use App\Http\Controllers\Auth\Permission\PermissionController;
 use App\Http\Controllers\Admin\Report\DeadFeedReportController;
@@ -89,6 +90,8 @@ Route::resource('/sales', SalesController::class)->except(['show']);
 Route::resource('/personal-sales', PersonalSalesController::class)->except(['show']);
 Route::get('sales/get-farm', [SalesController::class, 'getSubFarm'])->name('sales.getFarm');
 Route::resource('daily-entry', DailyEntryController::class)->except(['show']);
+Route::resource('daily-entry-multi', DailyEntryMultiController::class)->except(['show']);
+Route::get('daily-entry-multi/get-farm', [DailyEntryMultiController::class, 'getFarm'])->name('dailyEntryMulti.getFarm');
 // Route::get('daily-entry/get-farm', [DailyEntryController::class, 'getFarm'])->name('dailyEntry.getFarm');
 
 Route::prefix('/report')->group(function(){

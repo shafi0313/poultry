@@ -33,6 +33,7 @@ class FarmController extends Controller
                     $btn .= '<a href='.route('admin.farm.show', $row->id).' class="mr-2">Add Room</a>';
                     $btn .= view('button', ['type' => 'ajax-edit', 'route' => route('admin.farm.edit', $row->id) , 'row' => $row]);
                     $btn .= view('button', ['type' => 'ajax-delete', 'route' => route('admin.farm.destroy', $row->id), 'row' => $row, 'src' => 'dt']);
+                    // $btn .= '<a href='.route('admin.farm.destroy', $row->id).' class="btn-sm btn btn-danger mb-2"><i class="fa fa-trash" style="vertical-align: middle;"></i></a>';
                     return $btn;
                 })
                 ->rawColumns(['check', 'action', 'created_at'])
@@ -42,15 +43,22 @@ class FarmController extends Controller
         return view('admin.farm.index', compact('users'));
     }
 
-    public function store(FarmStoreRequest $request)
+    public function store(Request $request,FarmStoreRequest $farmRequest)
     {
         // if ($error = $this->authorize('employee-add')) {
         //     return $error;
         // }
         DB::beginTransaction();
-        $data = $request->validated();
-        $data['user_id'] = user()->id;
-        Farm::create($data);
+        $data = $farmRequest->validated();
+        $farm = Farm::create($data);
+
+        for($r = 1; $r <= $request->total_room; $r++){
+            $data['user_id'] = user()->id;
+            $data['farm_id'] = $farm->id;
+            $data['room_no'] = $r;
+            $data['name']    = $farm->name;
+            SubFarm::create($data);
+        }
         try {
             DB::commit();
             return response()->json(['message'=> 'Data Successfully Inserted'], 200);
@@ -121,6 +129,7 @@ class FarmController extends Controller
         //     return $error;
         // }
         try {
+            SubFarm::whereFarm_id($farm->id)->delete();
             $farm->delete();
             return response()->json(['message'=> 'Deleted Successfully'], 200);
         } catch (\Exception $e) {

@@ -16,8 +16,8 @@ class SubFarmController extends Controller
         $data['user_id'] = user()->id;
         $data['farm_id'] = $request->farm_id;
         $data['room_no'] = SubFarm::whereFarm_id($request->farm_id)->max('room_no') + 1;
-        $data['name'] = Farm::find($request->farm_id)->name;
-        SubFarm::create($data);
+        $data['name']    = Farm::find($request->farm_id)->name;
+        SubFarm:: create($data);
         try {
             DB::commit();
             return response()->json(['message' => 'Data Successfully Inserted'], 200);

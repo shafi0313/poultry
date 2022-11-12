@@ -149,13 +149,13 @@
                     </div>
                 </li>
 
-                <li class="nav-item{{ activeNav(['admin.daily-entry.*']) }} ">
+                <li class="nav-item{{ activeNav(['admin.daily-entry.*','admin.daily-entry-multi.*','admin.daily-entry.*']) }} ">
                     <a data-toggle="collapse" href="#dailyEntry">
                         <i class="fa-solid fa-clipboard-list"></i>
                         <p>Daily Entry</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse {{ openNav(['admin.daily-entry.*']) }}" id="dailyEntry">
+                    <div class="collapse {{ openNav(['admin.daily-entry.*','admin.daily-entry-multi.*','admin.daily-entry.*']) }}" id="dailyEntry">
                         <ul class="nav nav-collapse">
                             <li class="{{ activeSubNav('admin.daily-entry.index')}}">
                                 <a href="{{ route('admin.daily-entry.index') }}">
@@ -165,6 +165,11 @@
                             <li class="{{ activeSubNav('admin.daily-entry.create')}}">
                                 <a href="{{ route('admin.daily-entry.create') }}">
                                     <span class="sub-item">Entry</span>
+                                </a>
+                            </li>
+                            <li class="{{ activeSubNav('admin.daily-entry-multi.create')}}">
+                                <a href="{{ route('admin.daily-entry-multi.create') }}">
+                                    <span class="sub-item">Entry All</span>
                                 </a>
                             </li>
                         </ul>

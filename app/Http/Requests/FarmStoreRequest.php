@@ -24,10 +24,10 @@ class FarmStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['required', 'integer'],
-            'name' => ['required', 'string'],
-            'phone' => ['required', 'string'],
-            'address' => ['required', 'string'],
+            'user_id' => ['nullable', 'integer'],
+            'name'    => ['required', 'string'],
+            'phone'   => ['nullable', 'string'],
+            'address' => ['nullable', 'string'],
         ];
     }
 }
