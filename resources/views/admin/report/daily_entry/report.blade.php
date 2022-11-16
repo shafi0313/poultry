@@ -24,7 +24,7 @@
                             <div class="card-body">
                                 <div class="card-body row justify-content-center">
                                     <div class="text-center">
-                                        <h3>{{ $dailyEntries->first()->farm->name ?? ''}}</h3>
+                                        <h3>{{ $dailyEntries->first()->farm->name ?? '' }}</h3>
                                         <h4>{{ bdDate($start_date) }}</h4>
                                     </div>
                                     <div class="table-responsive">

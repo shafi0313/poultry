@@ -43,40 +43,15 @@
                                                 @endif
                                             </div>
                                         </div>
-
-                                        {{-- <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="sub_farm_id">Room No <span class="t_r">*</span></label>
-                                                <select class="form-control select2" name="sub_farm_id" id="sub_farm_id"
-                                                    required>
-                                                    <option selected value disabled>Select</option>
-                                                </select>
-                                                @if ($errors->has('sub_farm_id'))
-                                                    <div class="alert alert-danger">{{ $errors->first('sub_farm_id') }}
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div> --}}
-
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="start_date">Start Date <span class="t_r">*</span></label>
+                                                <label for="start_date">Date <span class="t_r">*</span></label>
                                                 <input type="date" class="form-control" name="start_date">
                                                 @if ($errors->has('start_date'))
                                                     <div class="alert alert-danger">{{ $errors->first('start_date') }}</div>
                                                 @endif
                                             </div>
                                         </div>
-
-                                        {{-- <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="end_date">End Date <span class="t_r">*</span></label>
-                                                <input type="date" class="form-control" name="end_date">
-                                                @if ($errors->has('end_date'))
-                                                    <div class="alert alert-danger">{{ $errors->first('end_date') }}</div>
-                                                @endif
-                                            </div>
-                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="card-footer text-center">
@@ -96,19 +71,19 @@
             @include('include.data_table')
             <script>
                 $('#farm_id').change(function() {
-                $.ajax({
-                    url: '{{ route('admin.global.getFarm') }}',
-                    method: 'get',
-                    data: {
-                        farm_id: $(this).val(),
-                    },
-                    success: function(res) {
-                        if (res.status == 'success') {
-                            $('#sub_farm_id').html(res.html);
+                    $.ajax({
+                        url: '{{ route('admin.global.getFarm') }}',
+                        method: 'get',
+                        data: {
+                            farm_id: $(this).val(),
+                        },
+                        success: function(res) {
+                            if (res.status == 'success') {
+                                $('#sub_farm_id').html(res.html);
+                            }
                         }
-                    }
+                    });
                 });
-            });
             </script>
         @endpush
     @endsection
