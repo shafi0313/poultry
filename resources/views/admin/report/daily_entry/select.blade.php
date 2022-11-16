@@ -29,7 +29,7 @@
                                 {{-- @csrf --}}
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="farm_id">Farm <span class="t_r">*</span></label>
                                                 <select class="form-control select2" name="farm_id" id="farm_id" required>
@@ -68,7 +68,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="end_date">End Date <span class="t_r">*</span></label>
                                                 <input type="date" class="form-control" name="end_date">
@@ -76,7 +76,7 @@
                                                     <div class="alert alert-danger">{{ $errors->first('end_date') }}</div>
                                                 @endif
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="card-footer text-center">

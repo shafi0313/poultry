@@ -23,17 +23,15 @@ class DailyEntryReportController extends Controller
         $end_date = $request->end_date;
         // return $request->date;
         // return$datum = DailyEntry::with('farm','subFarm', 'purchase')->whereFarm_id($request->farm_id)->get();
-        // $dailyEntries = DailyEntry::with(['farm','subFarm', 'purchase' => fn ($q) => $q->whereStatus(0)])
+        $dailyEntries = DailyEntry::with(['farm','subFarm'])
+                            ->whereFarm_id($request->farm_id)
+                            ->where('date',$start_date)
+                            ->whereStatus(0)->get();
+
+        // $purchases = Purchase::with(['farm','subFarm', 'dailyEntries'])
         //                     ->whereFarm_id($request->farm_id)
         //                     ->whereStatus(0)->get();
-        $purchases = Purchase::with(['farm','subFarm', 'dailyEntries'])->whereFarm_id($request->farm_id)
-                            ->whereStatus(0)->get();
-        // $feedBalance = Purchase::whereType('feed')->whereFarm_id($request->farm_id)->whereStatus(0)->sum('quantity') - DailyEntry::whereFarm_id($request->farm_id)->whereStatus(0)->whereDate('date', '<=', Carbon::now())->sum('feed');
-        // return Carbon::now()->format('Y-m-d');
-        // if($request->date == 'toDay'){
-        //     $dailyEntries = $datum->where('date',Carbon::now()->format('Y-m-d'))->get();
-        // }
-        return view('admin.report.daily_entry.report', compact('purchases','start_date','end_date'));
+        return view('admin.report.daily_entry.report', compact('dailyEntries','start_date'));
 
     }
 }

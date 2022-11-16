@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('sub_farm_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->tinyInteger('dead')->nullable();
             $table->tinyInteger('feed')->nullable();
+            $table->tinyInteger('balance_feed')->nullable();
             $table->date('date')->index();
             $table->boolean('status')->default(0)->comment('1=closed')->index();
             $table->timestamps();

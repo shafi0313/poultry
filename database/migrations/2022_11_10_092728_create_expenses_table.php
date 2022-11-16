@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('expense_cat_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->date('date');
             $table->decimal('amount',8,2);
+            $table->boolean('status')->default(0)->comment('1=closed')->index();
             $table->timestamps();
             $table->softDeletes();
         });

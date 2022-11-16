@@ -65,6 +65,7 @@
                                                         <th>Name</th>
                                                         <th>Dead Chicken</th>
                                                         <th>Used Feed</th>
+                                                        <th>Balance</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="subFarms" id="subFarms"></tbody>
@@ -72,6 +73,7 @@
                                                     <td colspan="2" class="text-right">Total</td>
                                                     <td id="chickenTotal"></td>
                                                     <td id="feedTotal"></td>
+                                                    <td id="balanceFeedTotal"></td>
                                                 </tfoot>
                                             </table>
                                         </div>
@@ -115,6 +117,7 @@
                     data: formdata,
                     success: res => {
                         $("#feedTotal").html('');
+                        $("#balanceFeedTotal").html('');
                         $("#chickenTotal").html('');
                         $('form').trigger("reset");
                         swal({

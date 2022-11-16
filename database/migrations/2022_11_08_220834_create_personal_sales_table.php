@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->decimal('weight',8,3);
             $table->decimal('price',8,2);
+            $table->boolean('status')->default(0)->comment('1=closed')->index();
             $table->timestamps();
             $table->softDeletes();
         });

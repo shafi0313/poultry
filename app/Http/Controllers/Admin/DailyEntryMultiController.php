@@ -35,15 +35,20 @@ class DailyEntryMultiController extends Controller
         // if ($error = $this->authorize('employee-add')) {
         //     return $error;
         // }
+        // $this->$request->validate([
+        //     'farm_id' => 'required|integer',
+        //     'date'    => 'required|date',
+        // ]);
         DB::beginTransaction();
         foreach ($request->sub_farm_id as $k => $v) {
             $data = [
-                'user_id' => user()->id,
-                'farm_id' => $request->farm_id,
-                'date' => $request->date,
-                'sub_farm_id' => $request->sub_farm_id[$k],
-                'dead' => $request->dead[$k],
-                'feed' => $request->feed[$k],
+                'user_id'      => user()->id,
+                'farm_id'      => $request->farm_id,
+                'date'         => $request->date,
+                'sub_farm_id'  => $request->sub_farm_id[$k],
+                'dead'         => $request->dead[$k],
+                'feed'         => $request->feed[$k],
+                'balance_feed' => $request->balance_feed[$k],
             ];
             DailyEntry::create($data);
         }
