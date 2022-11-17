@@ -16,6 +16,13 @@
     }
     .table td, .table th {
         border-left: 1px solid black !important;
+        border-right: 1px solid black !important;
+    }
+    th:last-child, td:last-child {
+        border-right :none !important;
+    }
+    th:first-child, td:first-child {
+        border-left :none !important;
     }
 </style>
     <div class="main-panel">
