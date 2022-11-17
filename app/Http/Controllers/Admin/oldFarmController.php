@@ -34,7 +34,7 @@ class FarmController extends Controller
             toast('Success!','success');
             return redirect()->back();
         }catch(\Exception $ex){
-            return $ex->getMessage();
+            // return $ex->getMessage();
             toast('Error','error');
             return redirect()->back();
         }
@@ -57,7 +57,7 @@ class FarmController extends Controller
             toast('success','Success');
             return redirect()->back();
         }catch(\Exception $ex){
-            return $ex->getMessage();
+            // return $ex->getMessage();
             DB::rollBack();
             toast('error','Error');
             return redirect()->back();
