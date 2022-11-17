@@ -2,14 +2,20 @@
 @section('title', 'Daily Entry Report')
 @section('content')
 <style>
-    table {
+    body {
         color: black !important;
+        font-weight: bold;
+    }
+    h4 {
+        font-weight: bold;
+        font-size: 15px;
     }
     table {
         border-collapse: collapse;
+        margin-bottom: 0 !important;
     }
-    table thead tr th, table tbody tr td {
-        border: 1px solid black !important;
+    .table td, .table th {
+        border-left: 1px solid black !important;
     }
 </style>
     <div class="main-panel">
@@ -32,38 +38,40 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="card-body row justify-content-center">
-                                    <div class="text-center" style="background: #FED966; width: 100%; display: flex; justify-content: space-between; padding: 20px 30px 10px 30px">
-                                        <h3>{{ $dailyEntries->first()->farm->name ?? '' }}</h3>
-                                        <h3>{{ bdDate($start_date) }}</h3>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="display table  table-hover text-center">
-                                            <thead class="">
-                                                <tr style="background: #8DABDF">
-                                                    <th>Room No</th>
-                                                    <th>Dead Chicken</th>
-                                                    <th>Used Feed</th>
-                                                    <th>Feed Remaining</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($dailyEntries as $dailyEntry)
-                                                    <tr>
-                                                        <td>{{ $dailyEntry->subFarm->room_no }}</td>
-                                                        <td style="color: red">{{ $dailyEntry->dead }}</td>
-                                                        <td>{{ $dailyEntry->feed }}</td>
-                                                        <td>{{ $dailyEntry->balance_feed }}</td>
+                                <div class="card-body row justify-content-center" style="width: 397px;">
+                                    <div style="border: 1px solid black">
+                                        <div class="text-center" style="background: #FED966; width: 100%; display: flex; justify-content: space-between; padding: 15px 8px 8px 8px">
+                                            <h4>{{ $dailyEntries->first()->farm->name ?? '' }}</h4>
+                                            <h4>Date: {{ bdDate($start_date) }}</h4>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="display table  table-hover text-center">
+                                                <thead class="">
+                                                    <tr style="background: #8DABDF">
+                                                        <th width="95px">Room No</th>
+                                                        <th width="95px">Dead</th>
+                                                        <th width="95px">Used</th>
+                                                        <th width="95px">Balance</th>
                                                     </tr>
-                                                @endforeach
-                                            </tbody>
-                                            <tr style="background: #FFE2D8; font-weight: bold">
-                                                <td>Total: </td>
-                                                <td>{{ $dailyEntries->sum('dead') }}</td>
-                                                <td>{{ $dailyEntries->sum('feed') }}</td>
-                                                <td>{{ $dailyEntries->sum('balance_feed') }}</td>
-                                            </tr>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($dailyEntries as $dailyEntry)
+                                                        <tr>
+                                                            <td>{{ $dailyEntry->subFarm->room_no }}</td>
+                                                            <td style="color: red">{{ $dailyEntry->dead }}</td>
+                                                            <td>{{ $dailyEntry->feed }}</td>
+                                                            <td>{{ $dailyEntry->balance_feed }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                                <tr style="background: #FFE2D8; font-weight: bold">
+                                                    <td>Total: </td>
+                                                    <td>{{ $dailyEntries->sum('dead') }}</td>
+                                                    <td>{{ $dailyEntries->sum('feed') }}</td>
+                                                    <td>{{ $dailyEntries->sum('balance_feed') }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
