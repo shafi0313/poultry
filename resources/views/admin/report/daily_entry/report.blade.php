@@ -64,8 +64,8 @@
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
-                                                <tr style="background: #FFE2D8; font-weight: bold">
-                                                    <td>Total: </td>
+                                                <tr style="background: #FFE2D8;">
+                                                    <td>Total</td>
                                                     <td>{{ $dailyEntries->sum('dead') }}</td>
                                                     <td>{{ $dailyEntries->sum('feed') }}</td>
                                                     <td>{{ $dailyEntries->sum('balance_feed') }}</td>
